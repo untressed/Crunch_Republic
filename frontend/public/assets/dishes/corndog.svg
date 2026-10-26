@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="cdGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF3C7" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cdBatter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="40%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="stick" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E5D0BA"/>
+      <stop offset="100%" stop-color="#B8977E"/>
+    </linearGradient>
+    <filter id="cdShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#78350F" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="250" r="220" fill="url(#cdGlow)"/>
+  <ellipse cx="260" cy="435" rx="150" ry="20" fill="#78350F" opacity="0.2"/>
+
+  <g filter="url(#cdShadow)" transform="rotate(-30 250 250)">
+    <!-- Wooden Stick -->
+    <rect x="238" y="320" width="24" height="150" rx="6" fill="url(#stick)"/>
+
+    <!-- Golden Battered Corn Dog Body -->
+    <rect x="195" y="80" width="110" height="280" rx="55" fill="url(#cdBatter)"/>
+
+    <!-- Crunchy Panko Texture Dots -->
+    <g fill="#FEF08A" opacity="0.6">
+      <circle cx="220" cy="120" r="4"/><circle cx="270" cy="140" r="3"/><circle cx="240" cy="170" r="4"/>
+      <circle cx="280" cy="200" r="3.5"/><circle cx="215" cy="230" r="4"/><circle cx="260" cy="260" r="4"/>
+      <circle cx="230" cy="290" r="3.5"/><circle cx="275" cy="320" r="4"/>
+    </g>
+
+    <!-- Mustard Yellow Zig-Zag Swirl -->
+    <path d="M 210 110 Q 285 130 220 160 Q 290 190 215 220 Q 290 250 215 280 Q 290 310 230 330" 
+          fill="none" stroke="#FACC15" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- Ketchup Red Zig-Zag Swirl -->
+    <path d="M 270 120 Q 200 145 270 175 Q 205 205 275 235 Q 205 265 275 295 Q 215 320 260 340" 
+          fill="none" stroke="#DC2626" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>

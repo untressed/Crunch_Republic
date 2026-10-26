@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="mGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF3C7" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bowlGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="brothGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <filter id="mShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#0F172A" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="250" r="220" fill="url(#mGlow)"/>
+  <ellipse cx="250" cy="435" rx="170" ry="24" fill="#0F172A" opacity="0.2"/>
+
+  <!-- Hot Steam -->
+  <path d="M 200 130 Q 180 90 210 60" stroke="#CBD5E1" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <path d="M 250 120 Q 230 75 260 40" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <path d="M 300 130 Q 280 90 310 60" stroke="#CBD5E1" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.6"/>
+
+  <g filter="url(#mShadow)">
+    <!-- Bowl Base -->
+    <ellipse cx="250" cy="390" rx="90" ry="18" fill="#1E293B"/>
+
+    <!-- Bowl Outer -->
+    <path d="M 70 220 C 70 370 430 370 430 220 Z" fill="url(#bowlGrad)"/>
+    <ellipse cx="250" cy="220" rx="180" ry="45" fill="#475569"/>
+    <ellipse cx="250" cy="220" rx="168" ry="40" fill="url(#brothGrad)"/>
+
+    <!-- Wavy Masala Noodles -->
+    <g fill="none" stroke="#FDE047" stroke-width="7" stroke-linecap="round">
+      <path d="M 120 220 Q 150 190 180 225 Q 210 255 240 210 Q 270 180 300 220 Q 330 250 360 210"/>
+      <path d="M 140 235 Q 170 265 200 220 Q 230 190 260 230 Q 290 260 320 215 Q 350 195 375 225"/>
+      <path d="M 130 205 Q 165 240 200 200 Q 235 170 270 215 Q 305 245 340 195"/>
+      <path d="M 160 225 Q 200 255 240 225 Q 280 195 320 235"/>
+    </g>
+
+    <!-- Peas & Diced Carrots -->
+    <circle cx="160" cy="215" r="7" fill="#22C55E"/>
+    <circle cx="210" cy="235" r="7" fill="#22C55E"/>
+    <circle cx="280" cy="210" r="7" fill="#22C55E"/>
+    <circle cx="330" cy="230" r="7" fill="#22C55E"/>
+
+    <rect x="180" y="200" width="12" height="12" rx="3" fill="#F97316"/>
+    <rect x="240" y="240" width="12" height="12" rx="3" fill="#F97316"/>
+    <rect x="300" y="215" width="12" height="12" rx="3" fill="#F97316"/>
+
+    <!-- Red Chili Garnish Slice -->
+    <path d="M 235 190 Q 255 185 265 200" stroke="#DC2626" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+    <!-- Chopsticks -->
+    <line x1="120" y1="120" x2="350" y2="240" stroke="#B45309" stroke-width="9" stroke-linecap="round"/>
+    <line x1="120" y1="100" x2="360" y2="230" stroke="#92400E" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

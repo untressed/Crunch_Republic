@@ -1,0 +1,197 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc; /* bg-slate-50 */
+    color: #334155;            /* text-slate-700 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    color: #0f172a;            /* text-slate-900 */
+  }
+}
+
+/* Completely Hide All Scrollbars Globally While Retaining Smooth Scrolling */
+*,
+*::before,
+*::after {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+*::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+div::-webkit-scrollbar,
+section::-webkit-scrollbar,
+main::-webkit-scrollbar,
+ul::-webkit-scrollbar,
+aside::-webkit-scrollbar,
+nav::-webkit-scrollbar,
+table::-webkit-scrollbar,
+tbody::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* ==========================================================================
+   Universal Sleek & Compact Dropdown (Select) UI System
+   ========================================================================== */
+select,
+.select-compact {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.65rem center !important;
+  background-size: 0.75rem !important;
+  padding-right: 2rem !important;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+  background-color: #ffffff;
+  color: #1e293b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+select:hover,
+.select-compact:hover {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+}
+
+select:focus,
+.select-compact:focus {
+  outline: none !important;
+  border-color: #e11d48 !important; /* Crunch Republic brand red */
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.1) !important;
+}
+
+select:disabled,
+.select-compact:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background-color: #f1f5f9;
+}
+
+select option {
+  background-color: #ffffff;
+  color: #0f172a;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Modern Minimalist SaaS Layout Classes */
+.surface-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.6); /* border-slate-200/60 */
+  border-radius: 1rem;                       /* rounded-2xl */
+  box-shadow: 0 2px 12px -1px rgba(0, 0, 0, 0.03), 0 4px 30px -2px rgba(0, 0, 0, 0.01); /* shadow-soft */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.surface-card:hover {
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.01), 0 16px 32px -4px rgba(0, 0, 0, 0.04); /* shadow-premium */
+}
+
+.surface-input {
+  background: #ffffff;
+  border: 1px solid rgba(203, 213, 225, 0.6); /* border-slate-300/60 */
+  border-radius: 0.75rem;                     /* rounded-xl */
+  outline: 2px solid transparent;             /* outline-none */
+  outline-offset: 2px;
+  color: #1e293b;                             /* text-slate-800 */
+  font-size: 0.875rem;                        /* text-sm */
+  line-height: 1.25rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.surface-input:focus {
+  border-color: rgba(99, 102, 241, 0.6);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.08);
+}
+
+/* Glassmorphism Topbar and Side Navigation Blur */
+.glass-topbar {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+/* Custom Print styling for table tent QR cards, pantry posters, and invoices */
+@media print {
+  @page {
+    size: auto;
+    margin: 8mm;
+  }
+  
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  header, nav, aside, button, .print-hidden, .print\:hidden {
+    display: none !important;
+  }
+
+  .print-page-isolated {
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    min-height: 90vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .print-batch-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
+/* ==========================================================================
+   Performance Optimizations for Fast First-Paint & Smooth Scrolling
+   ========================================================================== */
+.dish-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 240px;
+}
+
+.dish-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 100px;
+}
+

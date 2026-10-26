@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="shkGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FCE7F3" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FCE7F3" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="chocShake" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9A3412"/>
+      <stop offset="40%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+    <linearGradient id="shakeGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="shkShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#451A03" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="250" r="220" fill="url(#shkGlow)"/>
+  <ellipse cx="250" cy="445" rx="100" ry="16" fill="#451A03" opacity="0.2"/>
+
+  <!-- Striped Straw & Wafer Stick -->
+  <line x1="280" y1="40" x2="230" y2="300" stroke="#EC4899" stroke-width="12" stroke-linecap="round"/>
+  <line x1="280" y1="40" x2="230" y2="300" stroke="#FFFFFF" stroke-width="12" stroke-dasharray="12 12" stroke-linecap="round"/>
+  <!-- Wafer Stick -->
+  <line x1="200" y1="50" x2="240" y2="200" stroke="#D97706" stroke-width="14" stroke-linecap="round"/>
+  <line x1="200" y1="50" x2="240" y2="200" stroke="#78350F" stroke-width="14" stroke-dasharray="8 8" stroke-linecap="round"/>
+
+  <g filter="url(#shkShadow)">
+    <!-- Retro Sundae Glass Base -->
+    <ellipse cx="250" cy="425" rx="70" ry="16" fill="#CBD5E1"/>
+    <!-- Glass Stem -->
+    <path d="M 235 365 L 235 425 L 265 425 L 265 365 Z" fill="#94A3B8"/>
+
+    <!-- Thick Shake inside Glass -->
+    <path d="M 160 170 C 180 280 170 330 215 370 C 235 380 265 380 285 370 C 330 330 320 280 340 170 Z" fill="url(#chocShake)"/>
+
+    <!-- Glass Fluting & Highlights -->
+    <path d="M 160 170 C 180 280 170 330 215 370 C 235 380 265 380 285 370 C 330 330 320 280 340 170 Z" fill="url(#shakeGlass)" stroke="#FFFFFF" stroke-width="2"/>
+
+    <!-- Swirled Whipped Cream Mountain Top -->
+    <path d="M 160 170 C 145 130 190 110 210 130 C 220 95 270 95 285 125 C 310 110 345 135 340 170 Z" fill="#FFFFFF"/>
+    <path d="M 210 130 C 230 75 270 75 290 120 Z" fill="#F8FAFC"/>
+    <path d="M 235 90 C 245 60 260 60 265 85 Z" fill="#FFFFFF"/>
+
+    <!-- Chocolate Drizzle Lines on Cream -->
+    <path d="M 190 135 Q 230 160 250 140 Q 280 160 310 140" fill="none" stroke="#451A03" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Bright Red Cherry on Top -->
+    <circle cx="250" cy="65" r="14" fill="#DC2626"/>
+    <path d="M 252 52 C 265 30 285 35 290 40" stroke="#15803D" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="246" cy="61" r="3" fill="#FECDD3"/>
+  </g>
+</svg>

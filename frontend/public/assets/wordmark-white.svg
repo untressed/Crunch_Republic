@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 135" fill="none" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&amp;family=Montserrat:wght@900&amp;display=swap');
+      .crunch-title-white {
+        font-family: 'Alfa Slab One', 'Arial Black', 'Impact', sans-serif;
+        font-size: 82px;
+        fill: #EF4444;
+        letter-spacing: 0.05em;
+        font-weight: 900;
+        text-anchor: middle;
+      }
+      .republic-title-white {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 21px;
+        fill: #FFFFFF;
+        letter-spacing: 0.34em;
+        font-weight: 900;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+
+  <!-- Wordmark Line 1: CRUNCH -->
+  <text x="260" y="76" class="crunch-title-white">CRUNCH</text>
+
+  <!-- Wordmark Line 2: — ★  REPUBLIC  ★ — -->
+  <g transform="translate(0, 114)">
+    <!-- Left Dash -->
+    <line x1="34" y1="-7" x2="64" y2="-7" stroke="#EF4444" stroke-width="3" stroke-linecap="round" />
+    
+    <!-- Left Star (5-Point) -->
+    <polygon points="78,-16 81,-8 90,-8 83,-3 85,6 78,1 71,6 73,-3 66,-8 75,-8" fill="#EF4444" />
+
+    <!-- Center: REPUBLIC -->
+    <text x="270" y="0" class="republic-title-white">REPUBLIC</text>
+
+    <!-- Right Star (5-Point) -->
+    <polygon points="442,-16 445,-8 454,-8 447,-3 449,6 442,1 435,6 437,-3 430,-8 439,-8" fill="#EF4444" />
+
+    <!-- Right Dash -->
+    <line x1="456" y1="-7" x2="486" y2="-7" stroke="#EF4444" stroke-width="3" stroke-linecap="round" />
+  </g>
+</svg>

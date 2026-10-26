@@ -1,0 +1,14 @@
+# Crunch Republic
+
+> Build Your Own, Top It, Love It. Quick-service modern dining experience featuring burgers, loaded fries, corn dogs, pastas, mocktails, and thick shakes.
+
+## Core Features
+- Live QR Table Ordering: Scan table QR code to view live categorized menu and place orders directly to the kitchen.
+- Real-time Order Tracking: Customers view order statuses (received, cooking, served, paid) via live WebSocket updates.
+- Flexible Checkout: Table-side cash settlement and instant online UPI QR payment.
+- Corporate Desk Delivery: Scan office QR code with dedicated desk routing.
+
+## Technology Stack
+- Frontend: React 18, Vite, Tailwind CSS, Lucide Icons, Socket.IO Client.
+- Backend: Node.js, Express, MongoDB (Mongoose), Socket.IO.
+- Hosting & Delivery: High-performance single page application with WebP imagery.

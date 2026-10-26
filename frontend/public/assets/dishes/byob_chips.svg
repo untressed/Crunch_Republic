@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="byobGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF3C7" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tortilla" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="60%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="basketGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#DC2626"/>
+      <stop offset="100%" stop-color="#991B1B"/>
+    </linearGradient>
+    <filter id="byobShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#78350F" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="250" r="220" fill="url(#byobGlow)"/>
+  <ellipse cx="250" cy="430" rx="160" ry="22" fill="#78350F" opacity="0.2"/>
+
+  <g filter="url(#byobShadow)">
+    <!-- Back Chips -->
+    <polygon points="190,140 130,220 220,230" fill="url(#tortilla)" stroke="#B45309" stroke-width="2"/>
+    <polygon points="260,110 200,190 300,180" fill="url(#tortilla)" stroke="#B45309" stroke-width="2"/>
+    <polygon points="310,130 270,220 370,190" fill="url(#tortilla)" stroke="#B45309" stroke-width="2"/>
+
+    <!-- Mid Chips (Crunch Layer) -->
+    <polygon points="140,190 190,260 110,270" fill="url(#tortilla)" stroke="#B45309" stroke-width="2"/>
+    <polygon points="230,170 280,240 180,250" fill="url(#tortilla)" stroke="#B45309" stroke-width="2"/>
+    <polygon points="290,180 360,250 260,260" fill="url(#tortilla)" stroke="#B45309" stroke-width="2"/>
+    <polygon points="340,200 400,270 310,280" fill="url(#tortilla)" stroke="#B45309" stroke-width="2"/>
+
+    <!-- Seasoning Specks -->
+    <circle cx="230" cy="190" r="2" fill="#DC2626"/>
+    <circle cx="270" cy="170" r="2.5" fill="#DC2626"/>
+    <circle cx="170" cy="230" r="2" fill="#DC2626"/>
+    <circle cx="310" cy="210" r="2.5" fill="#DC2626"/>
+
+    <!-- Melted Cheddar Drizzle on Chips -->
+    <path d="M 160 210 Q 250 240 340 210 Q 300 260 210 240 Z" fill="#FACC15" opacity="0.9"/>
+
+    <!-- Crunch Republic Signature Basket / Bowl -->
+    <path d="M 90 260 L 130 400 C 140 420 360 420 370 400 L 410 260 Z" fill="url(#basketGrad)"/>
+    <ellipse cx="250" cy="260" rx="160" ry="30" fill="#EF4444"/>
+
+    <!-- Checkerboard Paper Liner edge -->
+    <path d="M 110 265 L 130 250 L 150 268 L 170 252 L 190 270 L 210 252 L 230 270 L 250 252 L 270 270 L 290 252 L 310 270 L 330 252 L 350 270 L 370 252 L 390 265 Z" fill="#FFFFFF"/>
+
+    <!-- Golden Brand Label on Bag -->
+    <rect x="180" y="315" width="140" height="50" rx="10" fill="#FEF08A"/>
+    <text x="250" y="338" font-family="sans-serif" font-weight="900" font-size="16" fill="#B91C1C" text-anchor="middle">BYOB</text>
+    <text x="250" y="354" font-family="sans-serif" font-weight="900" font-size="9" fill="#78350F" letter-spacing="2" text-anchor="middle">CHIPS</text>
+  </g>
+</svg>

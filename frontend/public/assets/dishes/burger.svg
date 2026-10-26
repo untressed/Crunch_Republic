@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF3C7" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bunTop" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="40%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="bunBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="patty" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78350F"/>
+      <stop offset="50%" stop-color="#542509"/>
+      <stop offset="100%" stop-color="#3B1804"/>
+    </linearGradient>
+    <linearGradient id="cheese" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="tomato" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#B91C1C"/>
+    </linearGradient>
+    <linearGradient id="lettuce" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4ADE80"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#78350F" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="250" r="220" fill="url(#bgGlow)"/>
+
+  <!-- Shadow Base -->
+  <ellipse cx="250" cy="425" rx="160" ry="24" fill="#78350F" opacity="0.2"/>
+
+  <g filter="url(#shadow)">
+    <!-- Bottom Bun -->
+    <path d="M 120 370 Q 250 385 380 370 C 385 410 330 420 250 420 C 170 420 115 410 120 370 Z" fill="url(#bunBottom)"/>
+
+    <!-- Grilled Patty -->
+    <rect x="95" y="325" width="310" height="48" rx="24" fill="url(#patty)"/>
+    <!-- Patty grill marks -->
+    <line x1="140" y1="332" x2="165" y2="365" stroke="#3B1804" stroke-width="4" stroke-linecap="round"/>
+    <line x1="190" y1="332" x2="215" y2="365" stroke="#3B1804" stroke-width="4" stroke-linecap="round"/>
+    <line x1="240" y1="332" x2="265" y2="365" stroke="#3B1804" stroke-width="4" stroke-linecap="round"/>
+    <line x1="290" y1="332" x2="315" y2="365" stroke="#3B1804" stroke-width="4" stroke-linecap="round"/>
+    <line x1="340" y1="332" x2="365" y2="365" stroke="#3B1804" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Melted Cheese Layer (Corners Drooping) -->
+    <polygon points="100,325 390,320 405,335 340,365 310,340 230,375 190,335 125,355 95,335" fill="url(#cheese)"/>
+
+    <!-- Tomatoes (Two Slices) -->
+    <path d="M 110 305 Q 185 295 260 305 L 255 325 Q 180 318 115 325 Z" fill="url(#tomato)"/>
+    <path d="M 240 305 Q 315 295 390 305 L 385 325 Q 310 318 245 325 Z" fill="url(#tomato)"/>
+    <circle cx="160" cy="312" r="3" fill="#FCA5A5"/>
+    <circle cx="210" cy="312" r="3" fill="#FCA5A5"/>
+    <circle cx="290" cy="312" r="3" fill="#FCA5A5"/>
+    <circle cx="340" cy="312" r="3" fill="#FCA5A5"/>
+
+    <!-- Wavy Crisp Lettuce -->
+    <path d="M 90 285 C 110 305 130 280 155 295 C 180 310 205 285 235 300 C 265 315 290 285 320 305 C 345 285 375 310 405 285 C 415 275 395 265 370 268 C 340 270 310 260 250 262 C 190 260 160 270 120 268 C 95 265 80 275 90 285 Z" fill="url(#lettuce)"/>
+
+    <!-- Top Brioche Bun -->
+    <path d="M 100 265 C 100 135 400 135 400 265 C 400 272 385 278 250 278 C 115 278 100 272 100 265 Z" fill="url(#bunTop)"/>
+    <!-- Bun Glaze Highlight -->
+    <path d="M 140 200 C 170 160 330 160 360 200 C 310 175 190 175 140 200 Z" fill="#FFFFFF" opacity="0.35"/>
+
+    <!-- White Sesame Seeds -->
+    <g fill="#FEF3C7">
+      <ellipse cx="170" cy="180" rx="4" ry="7" transform="rotate(-25 170 180)"/>
+      <ellipse cx="220" cy="165" rx="4" ry="7" transform="rotate(15 220 165)"/>
+      <ellipse cx="270" cy="160" rx="4" ry="7" transform="rotate(-10 270 160)"/>
+      <ellipse cx="320" cy="175" rx="4" ry="7" transform="rotate(30 320 175)"/>
+      <ellipse cx="140" cy="225" rx="4" ry="7" transform="rotate(-40 140 225)"/>
+      <ellipse cx="190" cy="215" rx="4" ry="7" transform="rotate(5 190 215)"/>
+      <ellipse cx="250" cy="205" rx="4" ry="7" transform="rotate(-15 250 205)"/>
+      <ellipse cx="305" cy="215" rx="4" ry="7" transform="rotate(20 305 215)"/>
+      <ellipse cx="360" cy="225" rx="4" ry="7" transform="rotate(45 360 225)"/>
+      <ellipse cx="230" cy="245" rx="4" ry="7" transform="rotate(35 230 245)"/>
+      <ellipse cx="280" cy="240" rx="4" ry="7" transform="rotate(-30 280 240)"/>
+    </g>
+  </g>
+</svg>

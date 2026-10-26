@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="swGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF3C7" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="toastBread" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="40%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="crust" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+    <filter id="swShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#78350F" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <circle cx="250" cy="250" r="220" fill="url(#swGlow)"/>
+  <ellipse cx="250" cy="430" rx="160" ry="22" fill="#78350F" opacity="0.2"/>
+
+  <g filter="url(#swShadow)">
+    <!-- Bottom Bread Slice Crust -->
+    <path d="M 100 330 L 260 400 L 400 310 L 250 250 Z" fill="url(#crust)"/>
+    <path d="M 105 325 L 260 395 L 395 305 L 250 245 Z" fill="url(#toastBread)"/>
+
+    <!-- Fillings Layer: Lettuce, Tomato, Cucumber, Cheese -->
+    <!-- Lettuce (Green Wavy) -->
+    <path d="M 95 320 C 130 340 180 330 260 385 C 320 350 370 330 405 300" stroke="#22C55E" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+    <!-- Tomatoes (Red Slices) -->
+    <rect x="140" y="315" width="45" height="12" rx="4" fill="#EF4444" transform="rotate(15 162 321)"/>
+    <rect x="230" y="340" width="45" height="12" rx="4" fill="#EF4444" transform="rotate(15 252 346)"/>
+    <rect x="310" y="310" width="45" height="12" rx="4" fill="#EF4444" transform="rotate(-15 332 316)"/>
+
+    <!-- Melted Cheddar Cheese Drip -->
+    <polygon points="120,305 180,310 160,335 220,325 250,350 280,330 330,345 350,315 380,305 350,295 120,295" fill="#FACC15"/>
+
+    <!-- Top Toast Slice -->
+    <path d="M 100 270 L 260 340 L 400 250 L 250 190 Z" fill="url(#crust)"/>
+    <path d="M 105 265 L 260 335 L 395 245 L 250 185 Z" fill="url(#toastBread)"/>
+
+    <!-- Diagonal Grill Marks on Toast -->
+    <line x1="160" y1="230" x2="220" y2="310" stroke="#78350F" stroke-width="5" stroke-linecap="round"/>
+    <line x1="210" y1="210" x2="270" y2="290" stroke="#78350F" stroke-width="5" stroke-linecap="round"/>
+    <line x1="260" y1="200" x2="320" y2="270" stroke="#78350F" stroke-width="5" stroke-linecap="round"/>
+    <line x1="310" y1="200" x2="360" y2="250" stroke="#78350F" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Bamboo Pick with Olive -->
+    <line x1="250" y1="120" x2="250" y2="250" stroke="#D4A373" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="250" cy="140" r="14" fill="#65A30D"/>
+    <circle cx="250" cy="140" r="4" fill="#DC2626"/>
+  </g>
+</svg>
