@@ -27,6 +27,10 @@ connectDB().then(() => {
       const { updateAllDishPhotos } = require('./updateDishImages');
       await updateAllDishPhotos(true);
 
+      // Ensure all registered corporate partners (Amazon, Savista, LTM, Artck, ION, Pinelabs, Barclays, UKG, etc.) are synced
+      const { updateCompanies } = require('./updateCompanies');
+      await updateCompanies(true);
+
       const Offer = require('./models/Offer');
       const User = require('./models/User');
       const count = await Offer.countDocuments();

@@ -333,6 +333,54 @@ const getCompanies = async (req, res) => {
     if (!restaurant.companies || restaurant.companies.length === 0) {
       restaurant.companies = [
         {
+          name: 'Amazon',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00001',
+        },
+        {
+          name: 'Savista',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00002',
+        },
+        {
+          name: 'LTM',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00003',
+        },
+        {
+          name: 'Artck',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00004',
+        },
+        {
+          name: 'ION',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00005',
+        },
+        {
+          name: 'Pinelabs',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00006',
+        },
+        {
+          name: 'Barclays',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00007',
+        },
+        {
+          name: 'UKG',
+          address: 'Corporate Delivery Desk / Floor Pantry',
+          contactPerson: 'Help Desk / Reception',
+          phone: '+91 98000 00008',
+        },
+        {
           name: 'TCS - Cyber Park',
           address: 'Tower B, 4th Floor, Cyber Park SEZ',
           contactPerson: 'Rahul Sharma (Admin)',
