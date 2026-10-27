@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 
-// Public customer-facing menu imported directly for instant first-paint
+// Public customer-facing pages imported directly for instant first-paint
 import CustomerMenu from './pages/CustomerMenu';
+import LandingPage from './pages/LandingPage';
 
 // Code-split admin / staff routes for on-demand loading
 const Login = lazy(() => import('./pages/Login'));
@@ -46,15 +47,10 @@ const App = () => {
         <Router>
           <Suspense fallback={<PageLoader />}>
             <Routes>
+              {/* Public Crunch Republic Brand Website Landing Page */}
+              <Route path="/" element={<LandingPage />} />
+
               {/* Main Admin Dashboard & Staff Routes */}
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
               <Route
                 path="/admin"
                 element={

@@ -325,37 +325,43 @@ const CustomerMenu = () => {
       setLoading(true);
       setTableError(null);
       try {
-        const isCorporate = typeParam === 'company_delivery' || !!companyParam;
+        const isTakeaway = typeParam === 'takeaway' || (!tableParam && !companyParam && !tokenParam);
+        const isCorporate = !isTakeaway && (typeParam === 'company_delivery' || !!companyParam);
 
-        if (isCorporate) {
-          if (!companyParam || !tokenParam) {
-            setTableError('Corporate delivery access restricted. Please scan the official Crunch Republic QR code at your office.');
-            setLoading(false);
-            return;
-          }
-        } else {
-          // Enforce strict table QR requirement:
-          if (!tableParam || !tokenParam) {
-            setTableError('Table access is strictly restricted. Please scan the physical QR code placed on your table at Crunch Republic to place an order.');
-            setLoading(false);
-            return;
+        if (!isTakeaway) {
+          if (isCorporate) {
+            if (!companyParam || !tokenParam) {
+              setTableError('Corporate delivery access restricted. Please scan the official Crunch Republic QR code at your office.');
+              setLoading(false);
+              return;
+            }
+          } else {
+            // Enforce strict table QR requirement for Dine-In:
+            if (!tableParam || !tokenParam) {
+              setTableError('Table access is strictly restricted. Please scan the physical QR code placed on your table at Crunch Republic to place an order.');
+              setLoading(false);
+              return;
+            }
           }
         }
 
-        const channel = isCorporate ? 'company_delivery' : 'dine_in';
-        const verifyUrl = isCorporate
-          ? `/api/restaurant/verify-table?company=${encodeURIComponent(companyParam)}&token=${encodeURIComponent(tokenParam)}`
-          : `/api/restaurant/verify-table?table=${encodeURIComponent(tableParam)}&token=${encodeURIComponent(tokenParam)}`;
+        const channel = isTakeaway ? 'takeaway' : (isCorporate ? 'company_delivery' : 'dine_in');
+        const verifyUrl = isTakeaway
+          ? null
+          : (isCorporate
+            ? `/api/restaurant/verify-table?company=${encodeURIComponent(companyParam)}&token=${encodeURIComponent(tokenParam)}`
+            : `/api/restaurant/verify-table?table=${encodeURIComponent(tableParam)}&token=${encodeURIComponent(tokenParam)}`);
 
-        // Fetch verification, restaurant, categories, dishes, AND active offers ALL CONCURRENTLY in 1 single round-trip
-        const [verifyRes, restRes, catRes, dishRes, offersRes] = await Promise.all([
-          fetch(verifyUrl),
+        // Fetch verification (if QR mode), restaurant, categories, dishes, AND active offers
+        const apiCalls = [
+          verifyUrl ? fetch(verifyUrl) : Promise.resolve({ json: async () => ({ success: true }) }),
           fetch(`/api/restaurant/${effectiveRestaurantId}/public`),
           fetch(`/api/categories/restaurant/${effectiveRestaurantId}`),
           fetch(`/api/dishes/restaurant/${effectiveRestaurantId}`),
           fetch(`/api/offers/active?orderType=${channel}`)
-        ]);
+        ];
 
+        const [verifyRes, restRes, catRes, dishRes, offersRes] = await Promise.all(apiCalls);
         const [verifyData, restData, catData, dishData, offersData] = await Promise.all([
           verifyRes.json(),
           restRes.json(),
@@ -371,7 +377,10 @@ const CustomerMenu = () => {
         }
 
         setIsTableVerified(true);
-        if (isCorporate) {
+        if (isTakeaway) {
+          setIsCompanyDelivery(false);
+          setTableNumber('Takeaway Counter');
+        } else if (isCorporate) {
           setIsCompanyDelivery(true);
           setCompanyName(verifyData.companyName || companyParam);
           setTableNumber(`Company: ${verifyData.companyName || companyParam}`);
@@ -613,16 +622,19 @@ const CustomerMenu = () => {
 
     setOrderLoading(true);
     try {
+      const isTakeaway = typeParam === 'takeaway' || (!tableParam && !companyParam && !tokenParam);
+      const computedOrderType = isTakeaway ? 'takeaway' : (isCompanyDelivery ? 'company_delivery' : 'dine_in');
+
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           restaurantId: restaurant?._id || effectiveRestaurantId,
-          orderType: isCompanyDelivery ? 'company_delivery' : 'dine_in',
+          orderType: computedOrderType,
           companyName: isCompanyDelivery ? companyName : '',
           deskNumber: isCompanyDelivery ? deskNumber : '',
-          tableNumber: isCompanyDelivery ? (companyName + (deskNumber ? ` [Desk: ${deskNumber}]` : '')) : actualTable,
-          tableToken: tokenParam,
+          tableNumber: isTakeaway ? 'Takeaway Counter' : (isCompanyDelivery ? (companyName + (deskNumber ? ` [Desk: ${deskNumber}]` : '')) : actualTable),
+          tableToken: isTakeaway ? undefined : tokenParam,
           customerName: actualName,
           customerMobile: actualMobile,
           specialInstructions: specialInstructions.trim(),
@@ -1021,10 +1033,10 @@ const CustomerMenu = () => {
             </div>
             <div>
               <div className="text-[10px] font-semibold text-stone-400">
-                {isCompanyDelivery ? 'Corporate Delivery' : 'Dine-In Table'}
+                {isCompanyDelivery ? 'Corporate Delivery' : (typeParam === 'takeaway' || (!tableParam && !companyParam) ? 'Takeaway / Direct Order' : 'Dine-In Table')}
               </div>
               <div className="text-xs font-extrabold text-white tracking-wide">
-                {isCompanyDelivery ? companyName : tableNumber}
+                {isCompanyDelivery ? companyName : (typeParam === 'takeaway' || (!tableParam && !companyParam) ? 'Direct Pickup / Counter' : tableNumber)}
               </div>
             </div>
           </div>

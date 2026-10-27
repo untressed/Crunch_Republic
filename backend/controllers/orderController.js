@@ -42,36 +42,38 @@ const createOrder = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please specify your company name' });
     }
 
-    // Strict Security: Orders are ONLY accepted via authentic QR scan
-    if (!tableToken) {
-      return res.status(403).json({
-        success: false,
-        message: 'Security Restriction: Orders can only be placed by scanning the official QR code.',
-      });
-    }
-
-    try {
-      const decoded = jwt.verify(tableToken, process.env.JWT_SECRET || 'supersecretjwtkeyforrestaurantqrmenusaas');
-      if (orderType === 'company_delivery') {
-        if (decoded.companyName && decoded.companyName !== companyName) {
-          return res.status(403).json({
-            success: false,
-            message: `Security Warning: Tampering detected. QR is for "${decoded.companyName}", but order was submitted for "${companyName}".`,
-          });
-        }
-      } else {
-        if (decoded.tableNumber && decoded.tableNumber !== tableNumber) {
-          return res.status(403).json({
-            success: false,
-            message: `Security Warning: Tampering detected. QR code is for ${decoded.tableNumber}, but order was submitted for ${tableNumber}.`,
-          });
-        }
+    // Strict Security: Dine-in and Company Delivery orders REQUIRE authentic QR scan
+    if (orderType === 'dine_in' || orderType === 'company_delivery') {
+      if (!tableToken) {
+        return res.status(403).json({
+          success: false,
+          message: 'Security Restriction: Dine-in and Office orders can only be placed by scanning the official QR code.',
+        });
       }
-    } catch (tokenErr) {
-      return res.status(403).json({
-        success: false,
-        message: 'Security Warning: Invalid or expired authorization token. Please scan the QR code again.',
-      });
+
+      try {
+        const decoded = jwt.verify(tableToken, process.env.JWT_SECRET || 'supersecretjwtkeyforrestaurantqrmenusaas');
+        if (orderType === 'company_delivery') {
+          if (decoded.companyName && decoded.companyName !== companyName) {
+            return res.status(403).json({
+              success: false,
+              message: `Security Warning: Tampering detected. QR is for "${decoded.companyName}", but order was submitted for "${companyName}".`,
+            });
+          }
+        } else {
+          if (decoded.tableNumber && decoded.tableNumber !== tableNumber) {
+            return res.status(403).json({
+              success: false,
+              message: `Security Warning: Tampering detected. QR code is for ${decoded.tableNumber}, but order was submitted for ${tableNumber}.`,
+            });
+          }
+        }
+      } catch (tokenErr) {
+        return res.status(403).json({
+          success: false,
+          message: 'Security Warning: Invalid or expired authorization token. Please scan the QR code again.',
+        });
+      }
     }
 
     // Verify restaurant exists or fallback to Crunch Republic default
