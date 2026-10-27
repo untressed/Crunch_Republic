@@ -6,15 +6,15 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0',
-    port: 14000,
+    port: 24000,
     proxy: {
       '/api': {
-        target: 'http://localhost:15000',
+        target: 'http://localhost:25000',
         changeOrigin: true,
         secure: false,
       },
       '/socket.io': {
-        target: 'http://localhost:15000',
+        target: 'http://localhost:25000',
         ws: true,
         changeOrigin: true,
       },
@@ -22,15 +22,15 @@ export default defineConfig({
   },
   preview: {
     host: '0.0.0.0',
-    port: 14000,
+    port: 24000,
     proxy: {
       '/api': {
-        target: 'http://localhost:15000',
+        target: 'http://localhost:25000',
         changeOrigin: true,
         secure: false,
       },
       '/socket.io': {
-        target: 'http://localhost:15000',
+        target: 'http://localhost:25000',
         ws: true,
         changeOrigin: true,
       },
