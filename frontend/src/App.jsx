@@ -6,6 +6,7 @@ import { SocketProvider } from './context/SocketContext';
 // Public customer-facing pages imported directly for instant first-paint
 import CustomerMenu from './pages/CustomerMenu';
 import LandingPage from './pages/LandingPage';
+import LegalPages from './pages/LegalPages';
 
 // Code-split admin / staff routes for on-demand loading
 const Login = lazy(() => import('./pages/Login'));
@@ -47,8 +48,14 @@ const App = () => {
         <Router>
           <Suspense fallback={<PageLoader />}>
             <Routes>
-              {/* Public Crunch Republic Brand Website Landing Page */}
+              {/* Public Crunch Republic Brand Website Landing Page & Compliance */}
               <Route path="/" element={<LandingPage />} />
+              <Route path="/legal" element={<LegalPages />} />
+              <Route path="/contact" element={<LegalPages />} />
+              <Route path="/terms" element={<LegalPages />} />
+              <Route path="/privacy" element={<LegalPages />} />
+              <Route path="/refund-policy" element={<LegalPages />} />
+              <Route path="/shipping-policy" element={<LegalPages />} />
 
               {/* Main Admin Dashboard & Staff Routes */}
               <Route

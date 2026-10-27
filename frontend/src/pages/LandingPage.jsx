@@ -486,18 +486,22 @@ const LandingPage = () => {
               </ul>
             </div>
 
-            {/* Col 3: Corporate & Staff */}
+            {/* Col 3: Legal & Trust Center (Mandatory for Payment Gateway Approval) */}
             <div className="md:col-span-4 space-y-3">
-              <h4 className="text-xs font-black text-white uppercase tracking-wider">Corporate Hubs & Staff</h4>
-              <p className="text-xs leading-relaxed text-stone-400">
-                Official desk-side catering partner for registered campus towers: Amazon, Barclays, UKG, Savista, LTM, ION & Pinelabs.
-              </p>
+              <h4 className="text-xs font-black text-white uppercase tracking-wider">Legal & Consumer Policies</h4>
+              <ul className="space-y-1.5 text-xs">
+                <li><Link to="/contact" className="hover:text-amber-300 transition-colors">Contact Us & Support</Link></li>
+                <li><Link to="/refund-policy" className="hover:text-amber-300 transition-colors">Refund & Cancellation Policy</Link></li>
+                <li><Link to="/shipping-policy" className="hover:text-amber-300 transition-colors">Shipping & Order Fulfillment Policy</Link></li>
+                <li><Link to="/terms" className="hover:text-amber-300 transition-colors">Terms and Conditions of Service</Link></li>
+                <li><Link to="/privacy" className="hover:text-amber-300 transition-colors">Privacy & Data Security Policy</Link></li>
+              </ul>
               <div className="pt-2">
                 <Link
                   to="/login"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-300 hover:text-white text-xs font-bold transition-colors"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-300 hover:text-white text-[11px] font-bold transition-colors"
                 >
-                  <ShieldCheck className="w-4 h-4 text-brand-500" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-brand-500" />
                   <span>Staff & Kitchen Portal</span>
                 </Link>
               </div>
