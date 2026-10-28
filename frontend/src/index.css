@@ -149,7 +149,7 @@ select option {
 /* Custom Print styling for table tent QR cards, pantry posters, and invoices */
 @media print {
   @page {
-    size: auto;
+    size: A4 portrait;
     margin: 8mm;
   }
   
@@ -158,6 +158,8 @@ select option {
     color: #000000 !important;
     height: auto !important;
     overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   header, nav, aside, button, .print-hidden, .print\:hidden {
@@ -169,11 +171,29 @@ select option {
     page-break-before: avoid !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    min-height: 90vh !important;
+    min-height: calc(100vh - 16mm) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
+  }
+
+  .print-a4-page {
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    min-height: calc(100vh - 16mm) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .print-a4-page:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
   .print-batch-card {

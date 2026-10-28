@@ -292,6 +292,72 @@ const CorporateCompanyCard = ({
   );
 };
 
+// Full A4 Corporate Pantry / Cafeteria Poster (Edge-to-Edge printable layout)
+const CorporateA4Poster = ({ company, qrUrl }) => {
+  const companyName = company?.name || company?.title || '';
+  const companyAddress = company?.address || company?.subtitle || '';
+
+  return (
+    <div className="w-[660px] max-w-full h-[960px] mx-auto my-auto flex flex-col justify-between items-center p-10 border-[5px] border-slate-950 rounded-[36px] bg-white text-slate-950 font-sans text-center shadow-none box-border">
+      {/* 1. Header with Crunch Republic Official Crest & Partner Badge */}
+      <div className="flex flex-col items-center w-full">
+        <CrunchLogo 
+          variant="crest" 
+          isDark={false} 
+          size="lg" 
+          color="#B91C1C" 
+          markClassName="w-20 h-20 mb-1.5" 
+        />
+        <div className="mt-2.5 px-6 py-1.5 bg-amber-50 text-amber-950 border-2 border-amber-400 rounded-full text-xs font-black uppercase tracking-widest shadow-xs inline-block">
+          Official Desk Delivery Partner
+        </div>
+      </div>
+
+      {/* 2. Dedicated Office Destination Box */}
+      <div className="my-3 p-5 bg-slate-50 rounded-3xl border-2 border-slate-200 w-full text-center">
+        <span className="text-xs uppercase font-extrabold text-slate-400 tracking-widest block mb-1">
+          Dedicated Office Hub
+        </span>
+        <h2 className="text-2xl sm:text-3xl font-black text-slate-950 leading-tight">
+          {companyName}
+        </h2>
+        {companyAddress && (
+          <p className="text-sm font-semibold text-slate-600 mt-1 flex items-center justify-center gap-1.5">
+            📍 {companyAddress}
+          </p>
+        )}
+      </div>
+
+      {/* 3. Huge High-Resolution QR Code */}
+      <div className="w-[360px] h-[360px] p-4 border-[3px] border-slate-300 rounded-3xl bg-white flex items-center justify-center shadow-xs">
+        {qrUrl ? (
+          <img 
+            src={qrUrl} 
+            alt={companyName} 
+            className="w-full h-full object-contain" 
+          />
+        ) : (
+          <div className="text-xs text-slate-400 font-bold uppercase">QR Code Loading...</div>
+        )}
+      </div>
+
+      {/* 4. Action Banner & Bottom Subtext */}
+      <div className="flex flex-col items-center w-full mt-3">
+        <div className="bg-slate-950 text-white rounded-2xl px-10 py-3.5 text-sm sm:text-base font-black tracking-widest uppercase shadow-md inline-block">
+          Scan & Order Direct To Desk
+        </div>
+        
+        <p className="text-xs text-slate-600 font-bold uppercase mt-3.5 tracking-wider">
+          Fresh handcrafted food & hot coffee delivered warm to your floor
+        </p>
+        <p className="text-[10px] text-slate-400 font-semibold tracking-widest uppercase mt-1">
+          No Waiting • Live Order Tracking • Instant UPI Payments
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const QrCenter = () => {
   const { token, restaurant, updateLocalRestaurant } = useAuth();
   
@@ -755,7 +821,13 @@ const QrCenter = () => {
           const data = await res.json();
           if (data.success) {
             const branded = await embedCrunchRepublicLogo(data.data.qrCodeUrl, 'CR');
-            items.push({ title: c.name, subtitle: `Corporate Delivery: ${c.address || 'Pantry / Cafeteria'}`, qrUrl: branded });
+            items.push({ 
+              company: c,
+              title: c.name, 
+              subtitle: c.address || 'Corporate Delivery Desk / Floor Pantry',
+              address: c.address || 'Corporate Delivery Desk / Floor Pantry',
+              qrUrl: branded 
+            });
           }
         }
       }
@@ -1338,46 +1410,26 @@ const QrCenter = () => {
           </div>
         )}
 
-        {/* 2. Single Corporate Pantry Poster Print View (Strictly 1 Page) */}
+        {/* 2. Single Corporate Pantry Poster Print View (1 Full A4 Page) */}
         {printMode === 'single-company' && singlePrintData && (
-          <div className="print-page-isolated w-full min-h-screen flex flex-col items-center justify-center p-8 bg-white">
-            <div className="mx-auto flex flex-col items-center p-8 border-[4px] border-slate-900 rounded-3xl w-[400px] bg-white text-slate-950 font-sans text-center shadow-none">
-              <CrunchLogo 
-                variant="crest" 
-                isDark={false} 
-                size="lg" 
-                color="#B91C1C" 
-                markClassName="w-16 h-16 mb-1" 
-              />
-              <div className="mt-2 px-3 py-1 bg-amber-50 text-amber-900 border border-amber-300 rounded-full text-[10px] font-black uppercase tracking-wider inline-block">
-                Official Desk Delivery Partner
-              </div>
-              
-              <div className="mt-4 p-3.5 bg-slate-50 rounded-2xl border border-slate-200 w-full text-center">
-                <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Dedicated Office Hub</span>
-                <h2 className="text-lg font-black text-slate-900 leading-tight mt-0.5">{singlePrintData.company?.name}</h2>
-                {singlePrintData.company?.address && (
-                  <p className="text-[11px] text-slate-500 font-medium mt-0.5">{singlePrintData.company.address}</p>
-                )}
-              </div>
-
-              <div className="w-[250px] h-[250px] my-5 p-2.5 border-2 border-slate-200 rounded-2xl bg-white flex items-center justify-center">
-                <img src={singlePrintData.qrUrl} alt={singlePrintData.company?.name} className="w-full h-full object-contain" />
-              </div>
-
-              <div className="bg-slate-900 text-white rounded-xl px-7 py-2.5 text-xs font-black tracking-widest uppercase inline-block">
-                Scan & Order Direct To Desk
-              </div>
-              
-              <p className="text-[10px] text-slate-500 font-medium uppercase mt-4 tracking-wider">
-                Fresh food & quick bites delivered warm to your floor
-              </p>
-            </div>
+          <div className="print-page-isolated w-full flex flex-col items-center justify-center bg-white p-2">
+            <CorporateA4Poster company={singlePrintData.company} qrUrl={singlePrintData.qrUrl} />
           </div>
         )}
 
-        {/* 3. Batch Print View (All Table Tents or All Office Posters) */}
-        {printMode === 'batch' && batchItems.length > 0 && (
+        {/* 3. Batch Print View: Corporate Posters (1 Full A4 Page PER COMPANY) */}
+        {printMode === 'batch' && activeTab === 'corporate' && batchItems.length > 0 && (
+          <div className="w-full bg-white">
+            {batchItems.map((item, idx) => (
+              <div key={idx} className="print-a4-page w-full flex flex-col items-center justify-center bg-white p-2">
+                <CorporateA4Poster company={item.company || item} qrUrl={item.qrUrl} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 4. Batch Print View: Dine-In Tables (Tent Cards) */}
+        {printMode === 'batch' && activeTab === 'dine_in' && batchItems.length > 0 && (
           <div className="p-6 bg-white min-h-screen">
             <div className="grid grid-cols-2 gap-8">
               {batchItems.map((item, idx) => (
