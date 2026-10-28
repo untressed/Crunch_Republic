@@ -124,6 +124,10 @@ const CorporateCompanyCard = ({
 
   useEffect(() => {
     let isMounted = true;
+    if (!company?.name) {
+      setLoading(false);
+      return;
+    }
     const fetchQr = async () => {
       setLoading(true);
       try {
@@ -152,7 +156,7 @@ const CorporateCompanyCard = ({
     return () => {
       isMounted = false;
     };
-  }, [company.name, token]);
+  }, [company?.name, token]);
 
   const handleCopyLink = () => {
     if (!targetUrl) return;
@@ -393,6 +397,19 @@ const QrCenter = () => {
   const [editAddress, setEditAddress] = useState('');
   const [editContact, setEditContact] = useState('');
   const [editPhone, setEditPhone] = useState('');
+
+  // Filtered companies based on search
+  const filteredCompanies = (companies || []).filter((c) => {
+    if (!c) return false;
+    if (!companySearch || !companySearch.trim()) return true;
+    const q = companySearch.toLowerCase().trim();
+    return (
+      (c.name && c.name.toLowerCase().includes(q)) ||
+      (c.address && c.address.toLowerCase().includes(q)) ||
+      (c.contactPerson && c.contactPerson.toLowerCase().includes(q)) ||
+      (c.phone && c.phone.toLowerCase().includes(q))
+    );
+  });
 
   // Loading & Feedback
   const [loading, setLoading] = useState(false);
