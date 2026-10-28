@@ -340,3 +340,4 @@ const LegalPages = () => {
 };
 
 export default LegalPages;
+
