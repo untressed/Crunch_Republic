@@ -50,6 +50,29 @@ const getSubdomain = () => {
   return 'main';
 };
 
+// Immediate safety forwarder for customer QR code scans or /menu URLs landing on admin or apex domain
+if (typeof window !== 'undefined') {
+  const hostname = window.location.hostname.toLowerCase();
+  const pathname = window.location.pathname;
+  const search = window.location.search || '';
+
+  if (hostname.endsWith('thecrunchrepublic.com')) {
+    const hasCustomerQrParam =
+      search.includes('tableToken=') ||
+      search.includes('token=') ||
+      search.includes('table=') ||
+      search.includes('company=') ||
+      search.includes('type=');
+    const isMenuPath = pathname === '/menu' || pathname.startsWith('/menu/') || pathname.startsWith('/table/');
+
+    // If scanned on admin. or thecrunchrepublic.com, immediately redirect to menu.thecrunchrepublic.com
+    if ((hostname.startsWith('admin.') || !hostname.startsWith('menu.')) && (isMenuPath || hasCustomerQrParam)) {
+      const targetPath = pathname.startsWith('/menu') ? '/' : pathname;
+      window.location.replace(`https://menu.thecrunchrepublic.com${targetPath}${search}`);
+    }
+  }
+}
+
 // On the main domain, automatically forward any /menu visits to menu.thecrunchrepublic.com
 const MenuRedirectHandler = () => {
   useEffect(() => {

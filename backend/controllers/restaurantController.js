@@ -155,23 +155,18 @@ const generateTableQR = async (req, res) => {
       { expiresIn: '365d' }
     );
 
-    // Target URL for scanning
-    let frontendOrigin = req.headers.origin;
-    if (!frontendOrigin && req.headers.referer) {
-      try {
-        frontendOrigin = new URL(req.headers.referer).origin;
-      } catch (e) {}
-    }
-    if (!frontendOrigin) {
-      const hostname = req.hostname === 'localhost' || req.hostname === '127.0.0.1' ? req.hostname : req.hostname;
-      frontendOrigin = `http://${hostname}:14000`;
+    // Target URL for scanning - Customer QR codes must always target menu subdomain in production
+    let menuOrigin = 'https://menu.thecrunchrepublic.com';
+    const reqOrigin = req.headers.origin || (req.headers.referer ? new URL(req.headers.referer).origin : '');
+    if (reqOrigin && (reqOrigin.includes('localhost') || reqOrigin.includes('127.0.0.1'))) {
+      menuOrigin = reqOrigin;
     }
 
     let clientUrl = '';
     if (orderType === 'company_delivery') {
-      clientUrl = `${frontendOrigin}/menu?type=company_delivery&company=${encodeURIComponent(companyName)}&token=${qrToken}`;
+      clientUrl = `${menuOrigin}/?type=company_delivery&company=${encodeURIComponent(companyName)}&token=${qrToken}`;
     } else {
-      clientUrl = `${frontendOrigin}/menu?type=dine_in&table=${encodeURIComponent(tableNumber)}&tableToken=${qrToken}`;
+      clientUrl = `${menuOrigin}/?type=dine_in&table=${encodeURIComponent(tableNumber)}&tableToken=${qrToken}`;
     }
 
     // Generate QR Code as a Data URL with High Error Correction (allows centered logo)
