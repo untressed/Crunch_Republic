@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
@@ -50,6 +50,44 @@ const getSubdomain = () => {
   return 'main';
 };
 
+// On the main domain, automatically forward any /menu visits to menu.thecrunchrepublic.com
+const MenuRedirectHandler = () => {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hostname.endsWith('thecrunchrepublic.com')) {
+      const search = window.location.search || '';
+      window.location.replace(`https://menu.thecrunchrepublic.com/${search}`);
+    }
+  }, []);
+
+  return <CustomerMenu />;
+};
+
+// On the main domain, forward table QR code visits to menu.thecrunchrepublic.com/table/:num
+const TableRedirectHandler = () => {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hostname.endsWith('thecrunchrepublic.com')) {
+      const pathname = window.location.pathname;
+      const search = window.location.search || '';
+      window.location.replace(`https://menu.thecrunchrepublic.com${pathname}${search}`);
+    }
+  }, []);
+
+  return <CustomerMenu />;
+};
+
+// On the main domain, automatically forward admin/staff views to admin.thecrunchrepublic.com
+const AdminRedirectHandler = ({ component: Component }) => {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hostname.endsWith('thecrunchrepublic.com')) {
+      const pathname = window.location.pathname;
+      const search = window.location.search || '';
+      window.location.replace(`https://admin.thecrunchrepublic.com${pathname}${search}`);
+    }
+  }, []);
+
+  return <Component />;
+};
+
 const App = () => {
   const subdomain = getSubdomain();
 
@@ -63,7 +101,7 @@ const App = () => {
               // 1. MENU SUBDOMAIN (menu.thecrunchrepublic.com)
               // -------------------------------------------------------------
               <Routes>
-                {/* Root on menu subdomain is the Customer Menu directly */}
+                {/* Clean Root on menu subdomain */}
                 <Route path="/" element={<CustomerMenu />} />
                 <Route path="/menu" element={<CustomerMenu />} />
                 <Route path="/menu/:restaurantId" element={<CustomerMenu />} />
@@ -186,84 +224,120 @@ const App = () => {
                 <Route path="/refund-policy" element={<LegalPages />} />
                 <Route path="/shipping-policy" element={<LegalPages />} />
 
-                {/* Public Customer Menu fallback on main domain */}
-                <Route path="/menu" element={<CustomerMenu />} />
-                <Route path="/menu/:restaurantId" element={<CustomerMenu />} />
-                <Route path="/table/:tableNumber" element={<CustomerMenu />} />
+                {/* Menu routes on main domain auto-redirect to menu.thecrunchrepublic.com on live site, or render on localhost */}
+                <Route path="/menu" element={<MenuRedirectHandler />} />
+                <Route path="/menu/:restaurantId" element={<MenuRedirectHandler />} />
+                <Route path="/table/:tableNumber" element={<TableRedirectHandler />} />
 
-                {/* Admin Views fallback on main domain */}
+                {/* Admin Views auto-redirect to admin.thecrunchrepublic.com on live site, or render on localhost */}
                 <Route
                   path="/admin"
                   element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Dashboard />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
                 <Route
                   path="/dashboard"
                   element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Dashboard />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<AdminRedirectHandler component={Login} />} />
+                <Route path="/signup" element={<AdminRedirectHandler component={Signup} />} />
                 <Route
                   path="/orders"
                   element={
-                    <ProtectedRoute>
-                      <Orders />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Orders />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
                 <Route
                   path="/pos"
                   element={
-                    <ProtectedRoute>
-                      <Orders />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Orders />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
                 <Route
                   path="/categories"
                   element={
-                    <ProtectedRoute>
-                      <Categories />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Categories />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
                 <Route
                   path="/dishes"
                   element={
-                    <ProtectedRoute>
-                      <Dishes />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Dishes />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
                 <Route
                   path="/profile"
                   element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Profile />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
                 <Route
                   path="/qr-center"
                   element={
-                    <ProtectedRoute>
-                      <QrCenter />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <QrCenter />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
                 <Route
                   path="/offers"
                   element={
-                    <ProtectedRoute>
-                      <Offers />
-                    </ProtectedRoute>
+                    <AdminRedirectHandler
+                      component={() => (
+                        <ProtectedRoute>
+                          <Offers />
+                        </ProtectedRoute>
+                      )}
+                    />
                   }
                 />
 
