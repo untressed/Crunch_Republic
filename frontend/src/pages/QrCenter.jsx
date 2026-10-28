@@ -20,7 +20,11 @@ import {
   Phone,
   User,
   ExternalLink,
-  Sparkles
+  Sparkles,
+  Search,
+  Edit3,
+  Copy,
+  Check
 } from 'lucide-react';
 
 // Client-side Canvas utility to composite official Crunch Republic logo right in the center of QR code
@@ -104,6 +108,190 @@ const embedCrunchRepublicLogo = (qrDataUrl, label = 'CR') => {
   });
 };
 
+// Corporate Delivery Partner Grid Card with embedded QR code, link copying, edit and print actions
+const CorporateCompanyCard = ({ 
+  company, 
+  token, 
+  onEdit, 
+  onDelete, 
+  onPrint, 
+  onDownload 
+}) => {
+  const [qrUrl, setQrUrl] = useState('');
+  const [targetUrl, setTargetUrl] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchQr = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `/api/restaurant/qr?orderType=company_delivery&companyName=${encodeURIComponent(company.name)}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const data = await response.json();
+        if (data.success && isMounted) {
+          setTargetUrl(data.data.targetUrl || '');
+          const branded = await embedCrunchRepublicLogo(data.data.qrCodeUrl, 'CR');
+          if (isMounted) {
+            setQrUrl(branded);
+          }
+        }
+      } catch (err) {
+        console.error('Error generating card QR:', err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchQr();
+    return () => {
+      isMounted = false;
+    };
+  }, [company.name, token]);
+
+  const handleCopyLink = () => {
+    if (!targetUrl) return;
+    navigator.clipboard.writeText(targetUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 hover:border-brand-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
+      {/* Top Details & Header */}
+      <div className="p-5 pb-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 font-bold shrink-0 shadow-xs group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              <Building2 className="w-5 h-5" />
+            </div>
+            <div className="min-w-0">
+              <h4 className="text-sm font-extrabold text-slate-900 truncate" title={company.name}>
+                {company.name}
+              </h4>
+              <span className="inline-block mt-0.5 text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200/60 uppercase tracking-wider">
+                Corporate Hub
+              </span>
+            </div>
+          </div>
+
+          {/* Quick Actions (Edit / Delete) */}
+          <div className="flex items-center gap-1 shrink-0">
+            <button
+              onClick={() => onEdit(company)}
+              title="Edit Company Details"
+              className="p-1.5 text-slate-400 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-all"
+            >
+              <Edit3 className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => onDelete(company._id || company.name, company.name)}
+              title="Delete Company"
+              className="p-1.5 text-slate-300 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Branded QR Code Box */}
+        <div className="my-4 p-3 bg-slate-50/80 rounded-2xl border border-slate-100 flex flex-col items-center justify-center relative">
+          <div className="w-44 h-44 bg-white rounded-xl border border-slate-200/80 p-2.5 flex items-center justify-center shadow-xs">
+            {loading ? (
+              <div className="flex flex-col items-center gap-2 text-slate-400">
+                <Loader2 className="w-6 h-6 animate-spin text-brand-600" />
+                <span className="text-[10px] font-bold">Signing QR...</span>
+              </div>
+            ) : qrUrl ? (
+              <img
+                src={qrUrl}
+                alt={`${company.name} Branded QR`}
+                className="w-full h-full object-contain"
+              />
+            ) : (
+              <div className="text-[10px] text-slate-400 font-bold">Failed to load QR</div>
+            )}
+          </div>
+
+          {/* Customer URL Copy Bar */}
+          <div className="w-full mt-3 flex items-center justify-between gap-2 px-2.5 py-1.5 bg-white rounded-xl border border-slate-200/70 text-[10px]">
+            <span className="text-slate-500 font-mono truncate select-all" title={targetUrl}>
+              {targetUrl ? targetUrl.replace('https://', '') : 'Generating link...'}
+            </span>
+            <button
+              onClick={handleCopyLink}
+              disabled={!targetUrl}
+              className="text-slate-500 hover:text-brand-600 shrink-0 font-bold uppercase tracking-wider flex items-center gap-1 transition-colors"
+              title="Copy Customer QR URL"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3 h-3 text-emerald-600" />
+                  <span className="text-emerald-600 font-bold">Copied</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3 h-3" />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Company Details / Features */}
+        <div className="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
+          <div className="flex items-start gap-2">
+            <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+            <span className="text-[11px] leading-tight text-slate-600 line-clamp-1" title={company.address}>
+              {company.address || 'Pantry / Main Floor Desk'}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between gap-2 text-[11px] text-slate-500">
+            <span className="flex items-center gap-1.5 truncate" title={company.contactPerson}>
+              <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <span className="truncate">{company.contactPerson || 'Reception / Admin'}</span>
+            </span>
+            {company.phone && (
+              <span className="flex items-center gap-1 text-slate-400 font-mono text-[10px] shrink-0">
+                <Phone className="w-3 h-3" />
+                {company.phone}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Card Footer Action Buttons */}
+      <div className="p-3.5 bg-slate-50/90 border-t border-slate-100 grid grid-cols-2 gap-2.5">
+        <button
+          onClick={() => onDownload(company, qrUrl)}
+          disabled={!qrUrl}
+          className="py-2 px-3 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-xs disabled:opacity-50"
+        >
+          <Download className="w-3.5 h-3.5 text-slate-500" />
+          <span>Download</span>
+        </button>
+
+        <button
+          onClick={() => onPrint(company, qrUrl)}
+          disabled={!qrUrl}
+          className="py-2 px-3 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm shadow-brand-500/20 disabled:opacity-50"
+        >
+          <Printer className="w-3.5 h-3.5" />
+          <span>Print Poster</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const QrCenter = () => {
   const { token, restaurant, updateLocalRestaurant } = useAuth();
   
@@ -129,6 +317,16 @@ const QrCenter = () => {
   const [compAddress, setCompAddress] = useState('');
   const [compContact, setCompContact] = useState('');
   const [compPhone, setCompPhone] = useState('');
+
+  // Company Search filter
+  const [companySearch, setCompanySearch] = useState('');
+
+  // Edit Company State
+  const [editingCompany, setEditingCompany] = useState(null);
+  const [editName, setEditName] = useState('');
+  const [editAddress, setEditAddress] = useState('');
+  const [editContact, setEditContact] = useState('');
+  const [editPhone, setEditPhone] = useState('');
 
   // Loading & Feedback
   const [loading, setLoading] = useState(false);
@@ -430,8 +628,65 @@ const QrCenter = () => {
     }
   };
 
+  // Handle Open Edit Company Modal
+  const handleOpenEdit = (comp) => {
+    setEditingCompany(comp);
+    setEditName(comp.name || '');
+    setEditAddress(comp.address || '');
+    setEditContact(comp.contactPerson || '');
+    setEditPhone(comp.phone || '');
+  };
+
+  // Handle Update Company
+  const handleUpdateCompany = async (e) => {
+    e.preventDefault();
+    if (!editName || editName.trim() === '' || !editingCompany) return;
+
+    setLoading(true);
+    try {
+      const companyId = editingCompany._id || editingCompany.name;
+      const res = await fetch(`/api/restaurant/companies/${encodeURIComponent(companyId)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: editName.trim(),
+          address: editAddress,
+          contactPerson: editContact,
+          phone: editPhone,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCompanies(data.data);
+        setEditingCompany(null);
+        setStatusMsg({ type: 'success', text: `Company "${editName.trim()}" updated successfully!` });
+      } else {
+        setStatusMsg({ type: 'error', text: data.message || 'Failed to update company.' });
+      }
+    } catch (err) {
+      console.error(err);
+      setStatusMsg({ type: 'error', text: 'Server error updating company.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Download Company QR
+  const handleDownloadCompanyQr = (company, qrUrl) => {
+    if (!qrUrl) return;
+    const link = document.createElement('a');
+    link.href = qrUrl;
+    link.download = `Crunch_Republic_QR_${company.name.replace(/\s+/g, '_')}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Print Single Pantry Poster for a specific Company
-  const handlePrintSingleCompany = async (company) => {
+  const handlePrintSingleCompany = async (company, preloadedQrUrl) => {
     const targetComp = company || selectedCompany;
     if (!targetComp) return;
 
@@ -439,7 +694,7 @@ const QrCenter = () => {
     setBatchItems([]);
     setPrintMode('single-company');
 
-    let qrUrl = (selectedCompany?.name === targetComp.name && companyLogoQrUrl) ? companyLogoQrUrl : null;
+    let qrUrl = preloadedQrUrl || ((selectedCompany?.name === targetComp.name && companyLogoQrUrl) ? companyLogoQrUrl : null);
 
     if (!qrUrl) {
       setQrLoading(true);
@@ -771,179 +1026,96 @@ const QrCenter = () => {
 
           {/* ===================== TAB 2: CORPORATE DELIVERY ===================== */}
           {activeTab === 'corporate' && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              
-              {/* Companies Left Column (7 cols) */}
-              <div className="lg:col-span-7 space-y-6">
-                <div className="surface-card p-6 space-y-6">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                    <div className="flex items-center gap-2.5">
-                      <Building2 className="w-4.5 h-4.5 text-brand-600" />
-                      <div>
-                        <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-tight">Registered Companies</h3>
-                        <p className="text-[11px] text-slate-400 font-medium">Companies with custom QR codes for direct desk deliveries</p>
-                      </div>
-                    </div>
-                    
-                    <button
-                      onClick={() => setShowAddCompanyModal(true)}
-                      className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center gap-1.5 shadow-sm"
-                    >
-                      <Plus className="w-3.5 h-3.5" />
-                      <span>Register Company</span>
-                    </button>
+            <div className="space-y-6">
+              {/* Corporate Control Bar */}
+              <div className="surface-card p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600 shrink-0">
+                    <Building2 className="w-5 h-5" />
                   </div>
-
-                  {/* Companies List */}
-                  <div className="space-y-3">
-                    {companies.length === 0 ? (
-                      <div className="py-8 text-center text-slate-400 text-xs">
-                        No companies registered yet. Click "+ Register Company" to create one.
-                      </div>
-                    ) : (
-                      companies.map((comp) => {
-                        const isSelected = selectedCompany?._id === comp._id || selectedCompany?.name === comp.name;
-                        return (
-                          <div
-                            key={comp._id || comp.name}
-                            onClick={() => setSelectedCompany(comp)}
-                            className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${
-                              isSelected
-                                ? 'bg-brand-50/80 border-brand-300 shadow-sm ring-2 ring-brand-500/20'
-                                : 'bg-white border-slate-200/80 hover:bg-slate-50 hover:border-slate-300'
-                            }`}
-                          >
-                            <div className="flex items-start gap-3 min-w-0">
-                              <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 ${
-                                isSelected ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-700'
-                              }`}>
-                                <Building2 className="w-4 h-4" />
-                              </div>
-                              <div className="min-w-0">
-                                <h4 className={`text-sm font-bold truncate ${isSelected ? 'text-brand-900' : 'text-slate-800'}`}>
-                                  {comp.name}
-                                </h4>
-                                <div className="flex items-center gap-3 text-[11px] text-slate-400 mt-0.5">
-                                  {comp.address && (
-                                    <span className="flex items-center gap-1 truncate">
-                                      <MapPin className="w-3 h-3 text-slate-300 shrink-0" />
-                                      {comp.address}
-                                    </span>
-                                  )}
-                                  {comp.contactPerson && (
-                                    <span className="flex items-center gap-1 truncate">
-                                      <User className="w-3 h-3 text-slate-300 shrink-0" />
-                                      {comp.contactPerson}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center gap-1 shrink-0">
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handlePrintSingleCompany(comp);
-                                }}
-                                title={`Print single poster for ${comp.name}`}
-                                className="text-slate-400 hover:text-brand-600 p-1.5 rounded-lg transition-colors"
-                              >
-                                <Printer className="w-3.5 h-3.5" />
-                              </button>
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleRemoveCompany(comp._id || comp.name, comp.name);
-                                }}
-                                className="text-slate-300 hover:text-rose-500 p-1.5 rounded-lg transition-colors"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Company QR Preview Right Column (5 cols) */}
-              <div className="lg:col-span-5 space-y-6">
-                <div className="surface-card p-6 flex flex-col gap-5 text-center">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div>
                     <div className="flex items-center gap-2">
-                      <QrCode className="w-4.5 h-4.5 text-brand-600" />
-                      <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-tight truncate">
-                        {selectedCompany ? selectedCompany.name : 'Select Company'} QR
+                      <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-tight">
+                        Registered Corporate Partners
                       </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-brand-50 text-brand-600 border border-brand-100">
+                        {companies.length} Hubs
+                      </span>
                     </div>
-                    <span className="px-2 py-0.5 bg-blue-50 text-blue-700 text-[10px] font-extrabold rounded-md uppercase border border-blue-100">
-                      Corporate Poster
-                    </span>
+                    <p className="text-[11px] text-slate-400 font-medium mt-0.5">
+                      Branded QR codes with direct desk delivery routing to partner offices
+                    </p>
                   </div>
+                </div>
 
-                  {/* QR Canvas Box with Embedded Logo */}
-                  <div className="w-full aspect-square max-w-[240px] mx-auto rounded-2xl bg-white border border-slate-200 p-3.5 flex flex-col items-center justify-center relative shadow-sm">
-                    {qrLoading ? (
-                      <div className="flex flex-col items-center gap-2 text-slate-400">
-                        <Loader2 className="w-8 h-8 animate-spin text-brand-600" />
-                        <span className="text-[10px] font-bold">Signing Corporate QR...</span>
-                      </div>
-                    ) : companyLogoQrUrl ? (
-                      <img 
-                        src={companyLogoQrUrl} 
-                        alt={`${selectedCompany?.name} Branded QR`} 
-                        className="w-full h-full object-contain"
-                      />
-                    ) : (
-                      <div className="flex flex-col items-center gap-2 text-slate-400 select-none">
-                        <Building2 className="w-10 h-10 stroke-[1.2]" />
-                        <span className="text-[10px] font-bold uppercase">Select a company</span>
-                      </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  {/* Search bar */}
+                  <div className="relative min-w-[220px]">
+                    <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      value={companySearch}
+                      onChange={(e) => setCompanySearch(e.target.value)}
+                      placeholder="Search company or office..."
+                      className="w-full pl-9 pr-7 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:border-brand-500 transition-colors"
+                    />
+                    {companySearch && (
+                      <button
+                        onClick={() => setCompanySearch('')}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs font-bold"
+                      >
+                        ✕
+                      </button>
                     )}
                   </div>
 
-                  {/* Company Info Box */}
-                  {selectedCompany && (
-                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-100 text-left space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Office Destination</span>
-                        <span className="text-xs font-black text-brand-600">{selectedCompany.name}</span>
-                      </div>
-                      <p className="text-[11px] text-slate-600 font-medium">
-                        📍 {selectedCompany.address || 'Pantry / Main Reception'}
-                      </p>
-                      <p className="text-[10px] font-mono text-slate-400 truncate" title={companyQrData?.targetUrl}>
-                        {companyQrData?.targetUrl || 'Generating secure link...'}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Actions */}
-                  <div className="grid grid-cols-2 gap-3 pt-1">
-                    <button
-                      onClick={handleDownload}
-                      disabled={!companyLogoQrUrl}
-                      className="py-2.5 bg-slate-50 hover:bg-slate-100 disabled:opacity-50 text-slate-700 border border-slate-200 text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm"
-                    >
-                      <Download className="w-3.5 h-3.5" />
-                      <span>Download PNG</span>
-                    </button>
-
-                    <button
-                      onClick={() => handlePrintSingleCompany(selectedCompany)}
-                      disabled={!companyLogoQrUrl || qrLoading}
-                      className="py-2.5 bg-brand-600 hover:bg-brand-500 disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-md shadow-brand-500/20"
-                    >
-                      <Printer className="w-3.5 h-3.5" />
-                      <span>Print Pantry Poster</span>
-                    </button>
-                  </div>
+                  {/* Register New Company Button */}
+                  <button
+                    onClick={() => setShowAddCompanyModal(true)}
+                    className="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all flex items-center gap-1.5 shadow-sm shadow-brand-500/20"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Register Company</span>
+                  </button>
                 </div>
               </div>
 
+              {/* Companies Grid View */}
+              {filteredCompanies.length === 0 ? (
+                <div className="surface-card p-12 text-center space-y-3">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mx-auto">
+                    <Building2 className="w-6 h-6 stroke-[1.5]" />
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-700">No partner companies found</h4>
+                  <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                    {companySearch
+                      ? `No companies matching "${companySearch}". Try clearing your search keyword.`
+                      : 'No companies registered yet. Click "+ Register Company" to create your first partner QR.'}
+                  </p>
+                  {companySearch && (
+                    <button
+                      onClick={() => setCompanySearch('')}
+                      className="mt-2 text-xs font-bold text-brand-600 hover:underline"
+                    >
+                      Clear Search
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {filteredCompanies.map((comp) => (
+                    <CorporateCompanyCard
+                      key={comp._id || comp.name}
+                      company={comp}
+                      token={token}
+                      onEdit={handleOpenEdit}
+                      onDelete={handleRemoveCompany}
+                      onPrint={(c, qr) => handlePrintSingleCompany(c, qr)}
+                      onDownload={(c, qr) => handleDownloadCompanyQr(c, qr)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -1030,6 +1202,102 @@ const QrCenter = () => {
                 >
                   {loading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Save Company & Generate QR</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal: Edit Company Details */}
+      {editingCompany && (
+        <div className="print:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 animate-scale-up border border-slate-100">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <Edit3 className="w-5 h-5 text-brand-600" />
+                <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-tight">
+                  Edit Corporate Hub Details
+                </h3>
+              </div>
+              <button
+                onClick={() => setEditingCompany(null)}
+                className="text-slate-400 hover:text-slate-600 text-lg font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleUpdateCompany} className="space-y-4">
+              <div className="flex flex-col gap-1">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Company / Office Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  placeholder="e.g. Amazon Hub"
+                  className="w-full px-3.5 py-2 surface-input text-xs"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Delivery Address / Floor / Tower
+                </label>
+                <input
+                  type="text"
+                  value={editAddress}
+                  onChange={(e) => setEditAddress(e.target.value)}
+                  placeholder="e.g. Tower 3, 5th Floor Cafeteria"
+                  className="w-full px-3.5 py-2 surface-input text-xs"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Contact Person
+                  </label>
+                  <input
+                    type="text"
+                    value={editContact}
+                    onChange={(e) => setEditContact(e.target.value)}
+                    placeholder="e.g. Reception / Help Desk"
+                    className="w-full px-3.5 py-2 surface-input text-xs"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Contact Phone
+                  </label>
+                  <input
+                    type="text"
+                    value={editPhone}
+                    onChange={(e) => setEditPhone(e.target.value)}
+                    placeholder="+91 98..."
+                    className="w-full px-3.5 py-2 surface-input text-xs"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingCompany(null)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-5 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-sm flex items-center gap-1.5"
+                >
+                  {loading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                  <span>Save Changes</span>
                 </button>
               </div>
             </form>

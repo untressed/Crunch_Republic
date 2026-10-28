@@ -7,6 +7,7 @@ const {
   generateTableQR,
   verifyTableAccess,
   addCompany,
+  updateCompany,
   deleteCompany,
   getCompanies,
 } = require('../controllers/restaurantController');
@@ -20,6 +21,7 @@ router.get('/qr', protect, generateTableQR);
 // Corporate delivery company management
 router.get('/companies', protect, getCompanies);
 router.post('/companies', protect, addCompany);
+router.put('/companies/:id', protect, updateCompany);
 router.delete('/companies/:id', protect, deleteCompany);
 
 // Public routes for customers scanning QR

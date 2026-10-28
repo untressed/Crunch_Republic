@@ -305,12 +305,57 @@ const deleteCompany = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Restaurant profile not found' });
     }
 
-    restaurant.companies = restaurant.companies.filter(c => c._id.toString() !== id && c.name !== id);
+    restaurant.companies = restaurant.companies.filter(c => c._id?.toString() !== id && c.name !== id);
     await restaurant.save();
 
     res.status(200).json({ success: true, data: restaurant.companies });
   } catch (error) {
     console.error('Delete company error:', error.message);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Update a registered company
+// @route   PUT /api/restaurant/companies/:id
+// @access  Private
+const updateCompany = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, address, contactPerson, phone } = req.body;
+    if (!name || name.trim() === '') {
+      return res.status(400).json({ success: false, message: 'Company name is required' });
+    }
+
+    const restaurant = await Restaurant.findOne({ owner: req.user._id });
+    if (!restaurant) {
+      return res.status(404).json({ success: false, message: 'Restaurant profile not found' });
+    }
+
+    const companyIndex = restaurant.companies.findIndex(
+      c => c._id?.toString() === id || c.name === id
+    );
+
+    if (companyIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Company not found' });
+    }
+
+    // Check duplicate name on other companies
+    const duplicate = restaurant.companies.some(
+      (c, idx) => idx !== companyIndex && c.name.toLowerCase() === name.trim().toLowerCase()
+    );
+    if (duplicate) {
+      return res.status(400).json({ success: false, message: 'Another company with this name already exists' });
+    }
+
+    restaurant.companies[companyIndex].name = name.trim();
+    restaurant.companies[companyIndex].address = address || '';
+    restaurant.companies[companyIndex].contactPerson = contactPerson || '';
+    restaurant.companies[companyIndex].phone = phone || '';
+
+    await restaurant.save();
+    res.status(200).json({ success: true, data: restaurant.companies });
+  } catch (error) {
+    console.error('Update company error:', error.message);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -417,6 +462,7 @@ module.exports = {
   generateTableQR,
   verifyTableAccess,
   addCompany,
+  updateCompany,
   deleteCompany,
   getCompanies,
 };
