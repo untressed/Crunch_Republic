@@ -135,14 +135,6 @@ const LandingPage = () => {
               <ShoppingBag className="w-4 h-4" />
               <span>Order Online</span>
             </SmartAction>
-
-            <SmartAction
-              href={getAdminUrl()}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-400 hover:text-white text-xs font-bold tracking-wide transition-colors"
-              title="Cafe Staff & Admin Login"
-            >
-              <span>Staff Login</span>
-            </SmartAction>
           </div>
         </div>
       </nav>
@@ -512,15 +504,6 @@ const LandingPage = () => {
                 <li><Link to="/terms" className="hover:text-amber-300 transition-colors">Terms and Conditions of Service</Link></li>
                 <li><Link to="/privacy" className="hover:text-amber-300 transition-colors">Privacy & Data Security Policy</Link></li>
               </ul>
-              <div className="pt-2">
-                <SmartAction
-                  href={getAdminUrl()}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-300 hover:text-white text-[11px] font-bold transition-colors"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-brand-500" />
-                  <span>Staff & Kitchen Portal</span>
-                </SmartAction>
-              </div>
             </div>
 
           </div>
