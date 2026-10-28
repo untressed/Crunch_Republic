@@ -18,6 +18,22 @@ import {
   UtensilsCrossed
 } from 'lucide-react';
 import CrunchLogo from '../components/CrunchLogo';
+import { getMenuUrl, getAdminUrl } from '../utils/domainHelper';
+
+const SmartAction = ({ href, className, children, title }) => {
+  if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+    return (
+      <a href={href} className={className} title={title}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link to={href} className={className} title={title}>
+      {children}
+    </Link>
+  );
+};
 
 const featuredDishes = [
   {
@@ -112,21 +128,21 @@ const LandingPage = () => {
           </Link>
 
           <div className="flex items-center gap-3">
-            <Link
-              to="/menu?type=takeaway"
+            <SmartAction
+              href={getMenuUrl('type=takeaway')}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-600 hover:bg-brand-500 active:scale-95 text-white text-xs sm:text-sm font-black uppercase tracking-wider shadow-lg shadow-brand-600/30 transition-all"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>Order Online</span>
-            </Link>
+            </SmartAction>
 
-            <Link
-              to="/login"
+            <SmartAction
+              href={getAdminUrl()}
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-400 hover:text-white text-xs font-bold tracking-wide transition-colors"
               title="Cafe Staff & Admin Login"
             >
               <span>Staff Login</span>
-            </Link>
+            </SmartAction>
           </div>
         </div>
       </nav>
@@ -160,13 +176,13 @@ const LandingPage = () => {
 
               {/* Action Buttons */}
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <Link
-                  to="/menu?type=takeaway"
+                <SmartAction
+                  href={getMenuUrl('type=takeaway')}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-600 to-rose-600 hover:from-brand-500 hover:to-rose-500 text-white font-black text-sm uppercase tracking-wider shadow-xl shadow-brand-600/30 hover:shadow-brand-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
                   <ShoppingBag className="w-5 h-5" />
                   <span>Order Takeaway & Pickup</span>
-                </Link>
+                </SmartAction>
 
                 <a
                   href="#dining-modes"
@@ -222,13 +238,13 @@ const LandingPage = () => {
                     </div>
                   </div>
 
-                  <Link
-                    to="/menu?type=takeaway"
+                  <SmartAction
+                    href={getMenuUrl('type=takeaway')}
                     className="w-full flex items-center justify-between p-3 rounded-xl bg-stone-800/90 hover:bg-stone-700/90 border border-stone-700 text-stone-200 text-xs font-bold transition-all group"
                   >
                     <span>Browse complete digital menu</span>
                     <ArrowRight className="w-4 h-4 text-brand-400 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                  </SmartAction>
                 </div>
               </div>
             </div>
@@ -285,26 +301,26 @@ const LandingPage = () => {
 
                 <div className="mt-5 pt-4 border-t border-stone-800 flex items-center justify-between">
                   <span className="text-lg font-black text-white">₹{dish.price}</span>
-                  <Link
-                    to="/menu?type=takeaway"
+                  <SmartAction
+                    href={getMenuUrl('type=takeaway')}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold uppercase tracking-wider transition-colors"
                   >
                     <span>Order</span>
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </Link>
+                  </SmartAction>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="mt-12 text-center">
-            <Link
-              to="/menu?type=takeaway"
+            <SmartAction
+              href={getMenuUrl('type=takeaway')}
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl bg-stone-800 hover:bg-stone-700 border border-stone-700 text-white text-xs font-black uppercase tracking-wider transition-all"
             >
               <span>View All 52 Dishes & Drinks</span>
               <ArrowRight className="w-4 h-4 text-brand-400" />
-            </Link>
+            </SmartAction>
           </div>
         </div>
       </section>
@@ -381,13 +397,13 @@ const LandingPage = () => {
               </div>
 
               <div className="mt-8 pt-4 border-t border-stone-800/80">
-                <Link
-                  to="/menu?type=takeaway"
+                <SmartAction
+                  href={getMenuUrl('type=takeaway')}
                   className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-black text-xs uppercase tracking-wider transition-all"
                 >
                   <span>Order Now</span>
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </SmartAction>
               </div>
             </div>
 
@@ -478,11 +494,11 @@ const LandingPage = () => {
             <div className="md:col-span-3 space-y-3">
               <h4 className="text-xs font-black text-white uppercase tracking-wider">Explore Menu</h4>
               <ul className="space-y-2">
-                <li><Link to="/menu?type=takeaway" className="hover:text-white transition-colors">Burgers & Corn Dogs</Link></li>
-                <li><Link to="/menu?type=takeaway" className="hover:text-white transition-colors">Specialty Animal Fries</Link></li>
-                <li><Link to="/menu?type=takeaway" className="hover:text-white transition-colors">Artisanal Pastas & Wraps</Link></li>
-                <li><Link to="/menu?type=takeaway" className="hover:text-white transition-colors">Handcrafted Shakes & Mocktails</Link></li>
-                <li><Link to="/menu?type=takeaway" className="hover:text-white transition-colors">Hot Hazelnut Coffee & Chai</Link></li>
+                <li><SmartAction href={getMenuUrl('type=takeaway')} className="hover:text-white transition-colors">Burgers & Corn Dogs</SmartAction></li>
+                <li><SmartAction href={getMenuUrl('type=takeaway')} className="hover:text-white transition-colors">Specialty Animal Fries</SmartAction></li>
+                <li><SmartAction href={getMenuUrl('type=takeaway')} className="hover:text-white transition-colors">Artisanal Pastas & Wraps</SmartAction></li>
+                <li><SmartAction href={getMenuUrl('type=takeaway')} className="hover:text-white transition-colors">Handcrafted Shakes & Mocktails</SmartAction></li>
+                <li><SmartAction href={getMenuUrl('type=takeaway')} className="hover:text-white transition-colors">Hot Hazelnut Coffee & Chai</SmartAction></li>
               </ul>
             </div>
 
@@ -497,13 +513,13 @@ const LandingPage = () => {
                 <li><Link to="/privacy" className="hover:text-amber-300 transition-colors">Privacy & Data Security Policy</Link></li>
               </ul>
               <div className="pt-2">
-                <Link
-                  to="/login"
+                <SmartAction
+                  href={getAdminUrl()}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 border border-stone-800 text-stone-300 hover:text-white text-[11px] font-bold transition-colors"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-brand-500" />
                   <span>Staff & Kitchen Portal</span>
-                </Link>
+                </SmartAction>
               </div>
             </div>
 

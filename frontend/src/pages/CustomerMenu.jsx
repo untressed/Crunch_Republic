@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback, Suspense, lazy, useRe
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useSocket } from '../context/SocketContext';
 import CrunchLogo from '../components/CrunchLogo';
+import { getMainUrl } from '../utils/domainHelper';
 import { 
   ShoppingBag, 
   Search, 
@@ -1015,14 +1016,16 @@ const CustomerMenu = () => {
       {/* 1. CRUNCH REPUBLIC BRANDING HEADER */}
       <header className="bg-stone-900 border-b border-stone-800 p-4 sticky top-0 z-30 shadow-lg text-white">
         <div className="flex items-center justify-center">
-          {/* Logo & Authentic Wordmark Branding */}
-          <CrunchLogo 
-            variant="full" 
-            isDark={true} 
-            size="sm" 
-            color="#dc2626"
-            markClassName="w-10 h-10 shrink-0 drop-shadow-sm" 
-          />
+          {/* Logo & Authentic Wordmark Branding - links to main site */}
+          <a href={getMainUrl('/')} title="Back to Crunch Republic Website" className="hover:opacity-90 transition-opacity">
+            <CrunchLogo 
+              variant="full" 
+              isDark={true} 
+              size="sm" 
+              color="#dc2626"
+              markClassName="w-10 h-10 shrink-0 drop-shadow-sm" 
+            />
+          </a>
         </div>
 
         {/* 2. DINING / DELIVERY STATUS BAR */}
