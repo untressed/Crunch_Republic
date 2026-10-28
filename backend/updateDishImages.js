@@ -12,16 +12,21 @@ const dishExactPhotoMap = {
   'hot coffee': '/assets/dishes/coffee.webp',
   'hazelnut coffee (hot specialty)': '/assets/dishes/coffee_hazelnut_hot.webp',
   'hazelnut cold coffee': '/assets/dishes/mocktail_cold_coffee.webp',
+  'crunch republic special cappuccino': '/assets/dishes/cappuccino_special.webp',
 
-  // Quick Bites
+  // Quick Bites & Chaat
   'samosa': '/assets/dishes/samosa.webp',
   'bread pakoda': '/assets/dishes/bread_pakoda.webp',
   'jalebi (portion / 250g)': '/assets/dishes/jalebi.webp',
   'jalebi': '/assets/dishes/jalebi.webp',
+  'rabri jalebi': '/assets/dishes/rabri_jalebi.webp',
   'imarti (per pc)': '/assets/dishes/imarti.webp',
   'imarti': '/assets/dishes/imarti.webp',
+  'rabri imarti': '/assets/dishes/rabri_imarti.webp',
   'aloo patties': '/assets/dishes/aloo_patties.webp',
   'paneer patties': '/assets/dishes/paneer_patties.webp',
+  'nachos corn chaat': '/assets/dishes/nachos_corn_chaat.webp',
+  'bhelpuri': '/assets/dishes/bhelpuri.webp',
 
   // Fries
   'classic salted fries': '/assets/dishes/fries_salted.webp',
@@ -29,6 +34,7 @@ const dishExactPhotoMap = {
   'cheesy fries': '/assets/dishes/fries_cheesy.webp',
   'butter chicken fries': '/assets/dishes/fries_butter_chicken.webp',
   'the crunch republic special (animal fries)': '/assets/dishes/fries_animal.webp',
+  'animal style fries': '/assets/dishes/fries_animal.webp',
 
   // Corn Dogs
   'classic corn dog': '/assets/dishes/corndog_classic.webp',
@@ -39,6 +45,7 @@ const dishExactPhotoMap = {
   // Burgers
   'crunch republic special burger (veg)': '/assets/dishes/burger_veg.webp',
   'crunch republic special burger (non-veg)': '/assets/dishes/burger_chicken.webp',
+  'paneer burger (with american coleslaw)': '/assets/dishes/burger_paneer.webp',
 
   // Wraps
   'crunch republic special wrap (veg)': '/assets/dishes/wrap_veg.webp',
@@ -47,6 +54,8 @@ const dishExactPhotoMap = {
   // Sandwiches
   'crunch republic special sandwich (veg)': '/assets/dishes/sandwich_veg.webp',
   'crunch republic special sandwich (non-veg)': '/assets/dishes/sandwich_chicken.webp',
+  'paneer bahubali sandwich': '/assets/dishes/sandwich_bahubali.webp',
+  'paneer stuffed kulcha': '/assets/dishes/kulcha_stuffed.webp',
 
   // Pasta
   'makhani sauce pasta (veg)': '/assets/dishes/pasta_makhani_veg.webp',
@@ -55,6 +64,7 @@ const dishExactPhotoMap = {
   'alfredo pasta (non-veg)': '/assets/dishes/pasta_alfredo_chicken.webp',
   'red sauce pasta (veg)': '/assets/dishes/pasta_red_veg.webp',
   'red sauce pasta (non-veg)': '/assets/dishes/pasta_red_chicken.webp',
+  'desi macaroni': '/assets/dishes/desi_macaroni.webp',
 
   // Maggie
   'veg maggie': '/assets/dishes/maggie_veg.webp',
@@ -77,6 +87,7 @@ const dishExactPhotoMap = {
   'watermelon mojito': '/assets/dishes/mocktail_watermelon.webp',
   'virgin piña colada': '/assets/dishes/mocktail_pinacolada.webp',
   'jaljeera': '/assets/dishes/mocktail_jaljeera.webp',
+  'blue ocean mocktail': '/assets/dishes/mocktail_blue_ocean.webp',
 
   // Thick Shakes
   'chocolate heaven thick shake': '/assets/dishes/shake_chocolate.webp',
@@ -84,68 +95,240 @@ const dishExactPhotoMap = {
   'creamy peanut butter cup shake': '/assets/dishes/shake_peanut_butter.webp',
   'matcha bliss shake': '/assets/dishes/shake_matcha.webp',
 
+  // 1. RICE (Indo-Chinese)
+  'schezwan rice (veg)': '/assets/dishes/rice_schezwan.webp',
+  'schezwan rice (egg)': '/assets/dishes/rice_schezwan.webp',
+  'schezwan rice (non-veg)': '/assets/dishes/rice_schezwan.webp',
+  'street style fried rice (veg)': '/assets/dishes/rice_fried.webp',
+  'street style fried rice (egg)': '/assets/dishes/rice_fried.webp',
+  'street style fried rice (non-veg)': '/assets/dishes/rice_fried.webp',
+  'burnt garlic rice (veg)': '/assets/dishes/rice_burnt_garlic.webp',
+  'burnt garlic rice (egg)': '/assets/dishes/rice_burnt_garlic.webp',
+  'burnt garlic rice (non-veg)': '/assets/dishes/rice_burnt_garlic.webp',
+
+  // 2. NOODLES (Indo-Chinese)
+  'street style noodles (veg)': '/assets/dishes/noodles_street.webp',
+  'street style noodles (egg)': '/assets/dishes/noodles_street.webp',
+  'street style noodles (non-veg)': '/assets/dishes/noodles_street.webp',
+  'chilli garlic noodles (veg)': '/assets/dishes/noodles_chilli_garlic.webp',
+  'chilli garlic noodles (egg)': '/assets/dishes/noodles_chilli_garlic.webp',
+  'chilli garlic noodles (non-veg)': '/assets/dishes/noodles_chilli_garlic.webp',
+  'singapuri noodles (veg)': '/assets/dishes/noodles_singapuri.webp',
+  'singapuri noodles (egg)': '/assets/dishes/noodles_singapuri.webp',
+  'singapuri noodles (non-veg)': '/assets/dishes/noodles_singapuri.webp',
+  'hakka noodles (veg)': '/assets/dishes/noodles_hakka.webp',
+  'hakka noodles (egg)': '/assets/dishes/noodles_hakka.webp',
+  'hakka noodles (non-veg)': '/assets/dishes/noodles_hakka.webp',
+  'schezwan noodles (veg)': '/assets/dishes/noodles_schezwan.webp',
+  'schezwan noodles (egg)': '/assets/dishes/noodles_schezwan.webp',
+  'schezwan noodles (non-veg)': '/assets/dishes/noodles_schezwan.webp',
+
+  // 3. SNACKS (CHINESE) - VEG
+  'chilli paneer (dry/gravy)': '/assets/dishes/chilli_paneer.webp',
+  'veg manchurian (dry/gravy)': '/assets/dishes/manchurian_veg.webp',
+  'chilli mushroom': '/assets/dishes/chilli_mushroom.webp',
+  'stuffed mushroom': '/assets/dishes/stuffed_mushroom.webp',
+  'chilli garlic soya chaap': '/assets/dishes/chilli_garlic_chaap.webp',
+  'crispy corn': '/assets/dishes/crispy_corn.webp',
+  'veg stir fry': '/assets/dishes/veg_stir_fry.webp',
+  'chilli potato': '/assets/dishes/chilli_potato.webp',
+  'honey chilli potato': '/assets/dishes/honey_chilli_potato.webp',
+
+  // 4. SNACKS (CHINESE) - NON-VEG
+  'hunan chilli chicken (dry/gravy)': '/assets/dishes/hunan_chilli_chicken.webp',
+  'chicken manchurian (dry/gravy)': '/assets/dishes/chicken_manchurian.webp',
+  'garlic chicken (dry/gravy)': '/assets/dishes/garlic_chicken.webp',
+  'kung pao chicken': '/assets/dishes/kung_pao_chicken.webp',
+  'dynamite chicken': '/assets/dishes/dynamite_chicken.webp',
+  'korean bbq chicken': '/assets/dishes/korean_bbq_chicken.webp',
+  'fried chicken tenders': '/assets/dishes/chicken_tenders.webp',
+  'thai chicken popcorn': '/assets/dishes/thai_chicken_popcorn.webp',
+
+  // 5. DUMPLINGS
+  'veg dumplings (momos)': '/assets/dishes/veg_dumplings.webp',
+  'non-veg dumplings (chicken momos)': '/assets/dishes/nonveg_dumplings.webp',
+  'mutton wontons': '/assets/dishes/mutton_wontons.webp',
+
+  // 6. TANDOOR
+  'malai chaap': '/assets/dishes/malai_chaap.webp',
+  'tandoori chaap': '/assets/dishes/tandoori_chaap.webp',
+  'paneer tikka': '/assets/dishes/paneer_tikka.webp',
+  'tandoori mushroom': '/assets/dishes/tandoori_mushroom.webp',
+  'achari chaap': '/assets/dishes/achari_chaap.webp',
+  'lemon mint chaap': '/assets/dishes/lemon_mint_chaap.webp',
+
+  // 7. ROLLS
+  'chaap / paneer tandoori roll': '/assets/dishes/chaap_paneer_roll.webp',
+  'cheese cigar roll': '/assets/dishes/cheese_cigar_roll.webp',
+  'spring roll': '/assets/dishes/spring_roll.webp',
+
+  // 8. KEBABS
+  'chicken seekh kebab': '/assets/dishes/chicken_seekh_kebab.webp',
+  'mutton seekh kebab': '/assets/dishes/mutton_seekh_kebab.webp',
+
+  // 9. SOUPS
+  'sweet corn soup': '/assets/dishes/sweet_corn_soup.webp',
+  'mushroom soup': '/assets/dishes/mushroom_soup.webp',
+  'chicken soup': '/assets/dishes/chicken_soup.webp',
+  'hot & sour soup': '/assets/dishes/hot_sour_soup.webp',
+  'mutton kharodey soup': '/assets/dishes/mutton_kharodey_soup.webp',
+
+  // 10. BOWL-O-MANIA
+  'chole rice bowl': '/assets/dishes/chole_rice_bowl.webp',
+  'kadi rice bowl': '/assets/dishes/kadi_rice_bowl.webp',
+  'palak paneer rice bowl': '/assets/dishes/palak_paneer_rice_bowl.webp',
+  'shahi paneer rice bowl': '/assets/dishes/shahi_paneer_rice_bowl.webp',
+  'mexican rice bowl': '/assets/dishes/mexican_rice_bowl.webp',
+  'butter chicken rice bowl': '/assets/dishes/butter_chicken_rice_bowl.webp',
+  'chole bhature (2 pcs)': '/assets/dishes/chole_bhature.webp',
+  'paneer chole bhature (2 pcs)': '/assets/dishes/paneer_chole_bhature.webp',
+  'poori sabzi (4 pcs)': '/assets/dishes/poori_sabzi.webp',
+
   // Combos
   'crunch supreme value combo': '/assets/dishes/burger_veg.webp',
 };
 
-function getPhotoByName(name) {
-  const lower = (name || '').toLowerCase().trim();
-  if (dishExactPhotoMap[lower]) return dishExactPhotoMap[lower];
+function getPhotoByName(dishName) {
+  const lower = dishName.toLowerCase().trim();
+  if (dishExactPhotoMap[lower]) {
+    return dishExactPhotoMap[lower];
+  }
 
+  // 1. Specific Bowl-O-Mania detection
+  if (lower.includes('palak paneer') && lower.includes('bowl')) return '/assets/dishes/palak_paneer_rice_bowl.webp';
+  if (lower.includes('shahi paneer') && lower.includes('bowl')) return '/assets/dishes/shahi_paneer_rice_bowl.webp';
+  if (lower.includes('kadi') && lower.includes('bowl')) return '/assets/dishes/kadi_rice_bowl.webp';
+  if (lower.includes('chole') && lower.includes('bowl')) return '/assets/dishes/chole_rice_bowl.webp';
+  if (lower.includes('mexican') && lower.includes('bowl')) return '/assets/dishes/mexican_rice_bowl.webp';
+  if (lower.includes('butter chicken') && lower.includes('bowl')) return '/assets/dishes/butter_chicken_rice_bowl.webp';
+  if (lower.includes('chole bhature')) return lower.includes('paneer') ? '/assets/dishes/paneer_chole_bhature.webp' : '/assets/dishes/chole_bhature.webp';
+  if (lower.includes('poori sabzi')) return '/assets/dishes/poori_sabzi.webp';
+
+  // 2. Rice & Noodles
+  if (lower.includes('schezwan rice')) return '/assets/dishes/rice_schezwan.webp';
+  if (lower.includes('burnt garlic rice')) return '/assets/dishes/rice_burnt_garlic.webp';
+  if (lower.includes('fried rice')) return '/assets/dishes/rice_fried.webp';
+
+  if (lower.includes('chilli garlic') && lower.includes('noodle')) return '/assets/dishes/noodles_chilli_garlic.webp';
+  if (lower.includes('singapuri') && lower.includes('noodle')) return '/assets/dishes/noodles_singapuri.webp';
+  if (lower.includes('hakka') && lower.includes('noodle')) return '/assets/dishes/noodles_hakka.webp';
+  if (lower.includes('schezwan') && lower.includes('noodle')) return '/assets/dishes/noodles_schezwan.webp';
+  if (lower.includes('noodle') || lower.includes('chowmein')) return '/assets/dishes/noodles_street.webp';
+
+  // 3. Chinese Snacks
+  if (lower.includes('chilli paneer')) return '/assets/dishes/chilli_paneer.webp';
+  if (lower.includes('manchurian')) return lower.includes('chicken') ? '/assets/dishes/chicken_manchurian.webp' : '/assets/dishes/manchurian_veg.webp';
+  if (lower.includes('chilli potato') && lower.includes('honey')) return '/assets/dishes/honey_chilli_potato.webp';
+  if (lower.includes('chilli potato')) return '/assets/dishes/chilli_potato.webp';
+  if (lower.includes('crispy corn')) return '/assets/dishes/crispy_corn.webp';
+  if (lower.includes('dynamite chicken')) return '/assets/dishes/dynamite_chicken.webp';
+  if (lower.includes('korean bbq')) return '/assets/dishes/korean_bbq_chicken.webp';
+  if (lower.includes('thai chicken') || lower.includes('chicken popcorn')) return '/assets/dishes/thai_chicken_popcorn.webp';
+  if (lower.includes('chicken tender')) return '/assets/dishes/chicken_tenders.webp';
+
+  // 4. Dumplings, Tandoor, Kebabs, Rolls, Soups
+  if (lower.includes('dumpling') || lower.includes('momo')) return lower.includes('non') || lower.includes('chicken') ? '/assets/dishes/nonveg_dumplings.webp' : '/assets/dishes/veg_dumplings.webp';
+  if (lower.includes('wonton')) return '/assets/dishes/mutton_wontons.webp';
+  if (lower.includes('malai chaap')) return '/assets/dishes/malai_chaap.webp';
+  if (lower.includes('paneer tikka')) return '/assets/dishes/paneer_tikka.webp';
+  if (lower.includes('tandoori chaap')) return '/assets/dishes/tandoori_chaap.webp';
+  if (lower.includes('seekh kebab')) return lower.includes('mutton') ? '/assets/dishes/mutton_seekh_kebab.webp' : '/assets/dishes/chicken_seekh_kebab.webp';
+  if (lower.includes('spring roll')) return '/assets/dishes/spring_roll.webp';
+  if (lower.includes('cigar roll')) return '/assets/dishes/cheese_cigar_roll.webp';
+
+  if (lower.includes('sweet corn soup')) return '/assets/dishes/sweet_corn_soup.webp';
+  if (lower.includes('mushroom soup')) return '/assets/dishes/mushroom_soup.webp';
+  if (lower.includes('hot & sour') || lower.includes('hot and sour')) return '/assets/dishes/hot_sour_soup.webp';
+  if (lower.includes('kharodey')) return '/assets/dishes/mutton_kharodey_soup.webp';
+  if (lower.includes('soup')) return '/assets/dishes/chicken_soup.webp';
+
+  // 5. Classic Cafe & Quick Bites
   if (lower.includes('tea')) return '/assets/dishes/tea.webp';
+  if (lower.includes('cappuccino')) return '/assets/dishes/cappuccino_special.webp';
   if (lower.includes('coffee') && lower.includes('hazelnut') && lower.includes('hot')) return '/assets/dishes/coffee_hazelnut_hot.webp';
   if (lower.includes('coffee') && lower.includes('cold')) return '/assets/dishes/mocktail_cold_coffee.webp';
   if (lower.includes('coffee')) return '/assets/dishes/coffee.webp';
   if (lower.includes('samosa')) return '/assets/dishes/samosa.webp';
   if (lower.includes('bread pakoda') || lower.includes('pakoda')) return '/assets/dishes/bread_pakoda.webp';
-  if (lower.includes('jalebi')) return '/assets/dishes/jalebi.webp';
-  if (lower.includes('imarti')) return '/assets/dishes/imarti.webp';
+  if (lower.includes('jalebi')) return lower.includes('rabri') ? '/assets/dishes/rabri_jalebi.webp' : '/assets/dishes/jalebi.webp';
+  if (lower.includes('imarti')) return lower.includes('rabri') ? '/assets/dishes/rabri_imarti.webp' : '/assets/dishes/imarti.webp';
   if (lower.includes('aloo patties')) return '/assets/dishes/aloo_patties.webp';
   if (lower.includes('paneer patties') || lower.includes('patties')) return '/assets/dishes/paneer_patties.webp';
-  if (lower.includes('salted fries')) return '/assets/dishes/fries_salted.webp';
-  if (lower.includes('peri peri')) return '/assets/dishes/fries_periperi.webp';
-  if (lower.includes('cheesy fries')) return '/assets/dishes/fries_cheesy.webp';
+
+  if (lower.includes('animal')) return '/assets/dishes/fries_animal.webp';
   if (lower.includes('butter chicken fries')) return '/assets/dishes/fries_butter_chicken.webp';
-  if (lower.includes('animal fries')) return '/assets/dishes/fries_animal.webp';
-  if (lower.includes('fry') || lower.includes('fries')) return '/assets/dishes/fries_salted.webp';
-  if (lower.includes('classic corn dog')) return '/assets/dishes/corndog_classic.webp';
-  if (lower.includes('potato corn dog') || lower.includes('fry guy')) return '/assets/dishes/corndog_potato.webp';
-  if (lower.includes('chick pick') || (lower.includes('corn dog') && lower.includes('chicken'))) return '/assets/dishes/corndog_chicken.webp';
-  if (lower.includes('wai wai') || lower.includes('ramen corn dog')) return '/assets/dishes/corndog_ramen.webp';
-  if (lower.includes('corn dog') || lower.includes('corndog')) return '/assets/dishes/corndog_classic.webp';
-  if (lower.includes('burger') && (lower.includes('non-veg') || lower.includes('chicken'))) return '/assets/dishes/burger_chicken.webp';
-  if (lower.includes('burger')) return '/assets/dishes/burger_veg.webp';
-  if (lower.includes('wrap') && (lower.includes('non-veg') || lower.includes('chicken'))) return '/assets/dishes/wrap_chicken.webp';
-  if (lower.includes('wrap')) return '/assets/dishes/wrap_veg.webp';
-  if (lower.includes('sandwich') && (lower.includes('non-veg') || lower.includes('chicken'))) return '/assets/dishes/sandwich_chicken.webp';
-  if (lower.includes('sandwich')) return '/assets/dishes/sandwich_veg.webp';
-  if (lower.includes('alfredo') && (lower.includes('non-veg') || lower.includes('chicken'))) return '/assets/dishes/pasta_alfredo_chicken.webp';
-  if (lower.includes('alfredo')) return '/assets/dishes/pasta_alfredo_veg.webp';
-  if (lower.includes('makhani') && lower.includes('pasta') && (lower.includes('non-veg') || lower.includes('chicken'))) return '/assets/dishes/pasta_makhani_chicken.webp';
-  if (lower.includes('makhani') && lower.includes('pasta')) return '/assets/dishes/pasta_makhani_veg.webp';
-  if (lower.includes('red sauce') && (lower.includes('non-veg') || lower.includes('chicken'))) return '/assets/dishes/pasta_red_chicken.webp';
-  if (lower.includes('red sauce') || lower.includes('pasta')) return '/assets/dishes/pasta_red_veg.webp';
-  if (lower.includes('egg maggie')) return '/assets/dishes/maggie_egg.webp';
-  if (lower.includes('cheesy maggie')) return '/assets/dishes/maggie_cheesy.webp';
-  if (lower.includes('korean maggie')) return '/assets/dishes/maggie_korean.webp';
-  if (lower.includes('makhani maggie')) return '/assets/dishes/maggie_makhani.webp';
-  if (lower.includes('maggie') || lower.includes('maggi')) return '/assets/dishes/maggie_veg.webp';
-  if (lower.includes('masala chaska')) return '/assets/dishes/byob_masala.webp';
-  if (lower.includes('cheesy masala') || lower.includes('cheesy chips')) return '/assets/dishes/byob_cheesy.webp';
-  if (lower.includes('meaty heaven') || lower.includes('meat chips')) return '/assets/dishes/byob_meat.webp';
-  if (lower.includes('republic special')) return '/assets/dishes/byob_special.webp';
-  if (lower.includes('byob') || lower.includes('chips')) return '/assets/dishes/byob_custom.webp';
-  if (lower.includes('strawberry')) return '/assets/dishes/mocktail_strawberry.webp';
-  if (lower.includes('mango')) return '/assets/dishes/mocktail_mango.webp';
-  if (lower.includes('watermelon')) return '/assets/dishes/mocktail_watermelon.webp';
-  if (lower.includes('pina colada') || lower.includes('piña')) return '/assets/dishes/mocktail_pinacolada.webp';
-  if (lower.includes('jaljeera')) return '/assets/dishes/mocktail_jaljeera.webp';
-  if (lower.includes('mojito') || lower.includes('mocktail')) return '/assets/dishes/mocktail_mojito.webp';
-  if (lower.includes('chocolate')) return '/assets/dishes/shake_chocolate.webp';
-  if (lower.includes('oreo')) return '/assets/dishes/shake_oreo.webp';
-  if (lower.includes('peanut butter')) return '/assets/dishes/shake_peanut_butter.webp';
-  if (lower.includes('matcha')) return '/assets/dishes/shake_matcha.webp';
-  if (lower.includes('shake')) return '/assets/dishes/shake_chocolate.webp';
+  if (lower.includes('cheesy fries')) return '/assets/dishes/fries_cheesy.webp';
+  if (lower.includes('peri peri') && lower.includes('fries')) return '/assets/dishes/fries_periperi.webp';
+  if (lower.includes('fries')) return '/assets/dishes/fries_salted.webp';
+
+  if (lower.includes('corn dog') || lower.includes('corndog')) {
+    if (lower.includes('ramen') || lower.includes('wai wai')) return '/assets/dishes/corndog_ramen.webp';
+    if (lower.includes('potato') || lower.includes('fry guy')) return '/assets/dishes/corndog_potato.webp';
+    if (lower.includes('chicken') || lower.includes('chick pick')) return '/assets/dishes/corndog_chicken.webp';
+    return '/assets/dishes/corndog_classic.webp';
+  }
+
+  if (lower.includes('burger')) {
+    if (lower.includes('paneer')) return '/assets/dishes/burger_paneer.webp';
+    if (lower.includes('chicken') || lower.includes('non-veg')) return '/assets/dishes/burger_chicken.webp';
+    return '/assets/dishes/burger_veg.webp';
+  }
+
+  if (lower.includes('wrap')) {
+    if (lower.includes('chicken') || lower.includes('non-veg')) return '/assets/dishes/wrap_chicken.webp';
+    return '/assets/dishes/wrap_veg.webp';
+  }
+
+  if (lower.includes('sandwich') || lower.includes('kulcha')) {
+    if (lower.includes('bahubali')) return '/assets/dishes/sandwich_bahubali.webp';
+    if (lower.includes('kulcha')) return '/assets/dishes/kulcha_stuffed.webp';
+    if (lower.includes('chicken') || lower.includes('non-veg')) return '/assets/dishes/sandwich_chicken.webp';
+    return '/assets/dishes/sandwich_veg.webp';
+  }
+
+  if (lower.includes('macaroni')) return '/assets/dishes/desi_macaroni.webp';
+  if (lower.includes('pasta')) {
+    if (lower.includes('alfredo')) {
+      return lower.includes('non-veg') || lower.includes('chicken') ? '/assets/dishes/pasta_alfredo_chicken.webp' : '/assets/dishes/pasta_alfredo_veg.webp';
+    }
+    if (lower.includes('red sauce')) {
+      return lower.includes('non-veg') || lower.includes('chicken') ? '/assets/dishes/pasta_red_chicken.webp' : '/assets/dishes/pasta_red_veg.webp';
+    }
+    return lower.includes('non-veg') || lower.includes('chicken') ? '/assets/dishes/pasta_makhani_chicken.webp' : '/assets/dishes/pasta_makhani_veg.webp';
+  }
+
+  if (lower.includes('maggie')) {
+    if (lower.includes('cheesy')) return '/assets/dishes/maggie_cheesy.webp';
+    if (lower.includes('korean')) return '/assets/dishes/maggie_korean.webp';
+    if (lower.includes('makhani')) return '/assets/dishes/maggie_makhani.webp';
+    if (lower.includes('egg')) return '/assets/dishes/maggie_egg.webp';
+    return '/assets/dishes/maggie_veg.webp';
+  }
+
+  if (lower.includes('byob') || lower.includes('chips')) {
+    if (lower.includes('masala')) return '/assets/dishes/byob_masala.webp';
+    if (lower.includes('cheesy')) return '/assets/dishes/byob_cheesy.webp';
+    if (lower.includes('meaty') || lower.includes('meat')) return '/assets/dishes/byob_meat.webp';
+    if (lower.includes('special')) return '/assets/dishes/byob_special.webp';
+    return '/assets/dishes/byob_custom.webp';
+  }
+
+  if (lower.includes('mojito') || lower.includes('mocktail')) {
+    if (lower.includes('blue ocean')) return '/assets/dishes/mocktail_blue_ocean.webp';
+    if (lower.includes('strawberry')) return '/assets/dishes/mocktail_strawberry.webp';
+    if (lower.includes('watermelon')) return '/assets/dishes/mocktail_watermelon.webp';
+    if (lower.includes('mango')) return '/assets/dishes/mocktail_mango.webp';
+    if (lower.includes('pina colada') || lower.includes('piña')) return '/assets/dishes/mocktail_pinacolada.webp';
+    if (lower.includes('jaljeera')) return '/assets/dishes/mocktail_jaljeera.webp';
+    return '/assets/dishes/mocktail_mojito.webp';
+  }
+
+  if (lower.includes('shake')) {
+    if (lower.includes('oreo')) return '/assets/dishes/shake_oreo.webp';
+    if (lower.includes('peanut butter')) return '/assets/dishes/shake_peanut_butter.webp';
+    if (lower.includes('matcha')) return '/assets/dishes/shake_matcha.webp';
+    return '/assets/dishes/shake_chocolate.webp';
+  }
 
   return '/assets/dishes/burger_veg.webp';
 }
