@@ -89,32 +89,32 @@ export const dishPhotoMap = {
   'matcha bliss shake': '/assets/dishes/shake_matcha.webp',
 
   // 1. RICE (Indo-Chinese)
-  'schezwan rice (veg)': '/assets/dishes/rice_schezwan.webp',
-  'schezwan rice (egg)': '/assets/dishes/rice_schezwan.webp',
-  'schezwan rice (non-veg)': '/assets/dishes/rice_schezwan.webp',
-  'street style fried rice (veg)': '/assets/dishes/rice_fried.webp',
-  'street style fried rice (egg)': '/assets/dishes/rice_fried.webp',
-  'street style fried rice (non-veg)': '/assets/dishes/rice_fried.webp',
-  'burnt garlic rice (veg)': '/assets/dishes/rice_burnt_garlic.webp',
-  'burnt garlic rice (egg)': '/assets/dishes/rice_burnt_garlic.webp',
-  'burnt garlic rice (non-veg)': '/assets/dishes/rice_burnt_garlic.webp',
+  'schezwan rice (veg)': '/assets/dishes/rice_schezwan_veg.webp',
+  'schezwan rice (egg)': '/assets/dishes/rice_schezwan_egg.webp',
+  'schezwan rice (non-veg)': '/assets/dishes/rice_schezwan_chicken.webp',
+  'street style fried rice (veg)': '/assets/dishes/rice_fried_veg.webp',
+  'street style fried rice (egg)': '/assets/dishes/rice_fried_egg.webp',
+  'street style fried rice (non-veg)': '/assets/dishes/rice_fried_chicken.webp',
+  'burnt garlic rice (veg)': '/assets/dishes/rice_burnt_garlic_veg.webp',
+  'burnt garlic rice (egg)': '/assets/dishes/rice_burnt_garlic_egg.webp',
+  'burnt garlic rice (non-veg)': '/assets/dishes/rice_burnt_garlic_chicken.webp',
 
   // 2. NOODLES (Indo-Chinese)
-  'street style noodles (veg)': '/assets/dishes/noodles_street.webp',
-  'street style noodles (egg)': '/assets/dishes/noodles_street.webp',
-  'street style noodles (non-veg)': '/assets/dishes/noodles_street.webp',
-  'chilli garlic noodles (veg)': '/assets/dishes/noodles_chilli_garlic.webp',
-  'chilli garlic noodles (egg)': '/assets/dishes/noodles_chilli_garlic.webp',
-  'chilli garlic noodles (non-veg)': '/assets/dishes/noodles_chilli_garlic.webp',
-  'singapuri noodles (veg)': '/assets/dishes/noodles_singapuri.webp',
-  'singapuri noodles (egg)': '/assets/dishes/noodles_singapuri.webp',
-  'singapuri noodles (non-veg)': '/assets/dishes/noodles_singapuri.webp',
-  'hakka noodles (veg)': '/assets/dishes/noodles_hakka.webp',
-  'hakka noodles (egg)': '/assets/dishes/noodles_hakka.webp',
-  'hakka noodles (non-veg)': '/assets/dishes/noodles_hakka.webp',
-  'schezwan noodles (veg)': '/assets/dishes/noodles_schezwan.webp',
-  'schezwan noodles (egg)': '/assets/dishes/noodles_schezwan.webp',
-  'schezwan noodles (non-veg)': '/assets/dishes/noodles_schezwan.webp',
+  'street style noodles (veg)': '/assets/dishes/noodles_street_veg.webp',
+  'street style noodles (egg)': '/assets/dishes/noodles_street_egg.webp',
+  'street style noodles (non-veg)': '/assets/dishes/noodles_street_chicken.webp',
+  'chilli garlic noodles (veg)': '/assets/dishes/noodles_chilli_garlic_veg.webp',
+  'chilli garlic noodles (egg)': '/assets/dishes/noodles_chilli_garlic_egg.webp',
+  'chilli garlic noodles (non-veg)': '/assets/dishes/noodles_chilli_garlic_chicken.webp',
+  'singapuri noodles (veg)': '/assets/dishes/noodles_singapuri_veg.webp',
+  'singapuri noodles (egg)': '/assets/dishes/noodles_singapuri_egg.webp',
+  'singapuri noodles (non-veg)': '/assets/dishes/noodles_singapuri_chicken.webp',
+  'hakka noodles (veg)': '/assets/dishes/noodles_hakka_veg.webp',
+  'hakka noodles (egg)': '/assets/dishes/noodles_hakka_egg.webp',
+  'hakka noodles (non-veg)': '/assets/dishes/noodles_hakka_chicken.webp',
+  'schezwan noodles (veg)': '/assets/dishes/noodles_schezwan_veg.webp',
+  'schezwan noodles (egg)': '/assets/dishes/noodles_schezwan_egg.webp',
+  'schezwan noodles (non-veg)': '/assets/dishes/noodles_schezwan_chicken.webp',
 
   // 3. SNACKS (CHINESE) - VEG
   'chilli paneer (dry/gravy)': '/assets/dishes/chilli_paneer.webp',
@@ -178,7 +178,7 @@ export const dishPhotoMap = {
   'poori sabzi (4 pcs)': '/assets/dishes/poori_sabzi.webp',
 
   // Combos
-  'crunch supreme value combo': '/assets/dishes/burger_veg.webp',
+  'crunch supreme value combo': '/assets/dishes/combo_feast.webp',
 };
 
 const defaultDishPhoto = '/assets/dishes/burger_veg.webp';
@@ -218,16 +218,19 @@ export function getDishImage(dish) {
   // 2. Keyword-based matching
   const target = `${name} ${categoryName}`;
 
-  if (target.includes('schezwan rice')) return '/assets/dishes/rice_schezwan.webp';
-  if (target.includes('fried rice')) return '/assets/dishes/rice_fried.webp';
-  if (target.includes('burnt garlic rice')) return '/assets/dishes/rice_burnt_garlic.webp';
+  const isEgg = target.includes('egg');
+  const isNonVeg = target.includes('non-veg') || target.includes('non veg') || target.includes('chicken');
+
+  if (target.includes('schezwan rice')) return isNonVeg ? '/assets/dishes/rice_schezwan_chicken.webp' : (isEgg ? '/assets/dishes/rice_schezwan_egg.webp' : '/assets/dishes/rice_schezwan_veg.webp');
+  if (target.includes('fried rice')) return isNonVeg ? '/assets/dishes/rice_fried_chicken.webp' : (isEgg ? '/assets/dishes/rice_fried_egg.webp' : '/assets/dishes/rice_fried_veg.webp');
+  if (target.includes('burnt garlic rice')) return isNonVeg ? '/assets/dishes/rice_burnt_garlic_chicken.webp' : (isEgg ? '/assets/dishes/rice_burnt_garlic_egg.webp' : '/assets/dishes/rice_burnt_garlic_veg.webp');
   if (target.includes('rice') && target.includes('bowl')) return '/assets/dishes/chole_rice_bowl.webp';
 
-  if (target.includes('chilli garlic noodle')) return '/assets/dishes/noodles_chilli_garlic.webp';
-  if (target.includes('singapuri noodle')) return '/assets/dishes/noodles_singapuri.webp';
-  if (target.includes('hakka noodle')) return '/assets/dishes/noodles_hakka.webp';
-  if (target.includes('schezwan noodle')) return '/assets/dishes/noodles_schezwan.webp';
-  if (target.includes('noodle') || target.includes('chowmein')) return '/assets/dishes/noodles_street.webp';
+  if (target.includes('chilli garlic noodle')) return isNonVeg ? '/assets/dishes/noodles_chilli_garlic_chicken.webp' : (isEgg ? '/assets/dishes/noodles_chilli_garlic_egg.webp' : '/assets/dishes/noodles_chilli_garlic_veg.webp');
+  if (target.includes('singapuri noodle')) return isNonVeg ? '/assets/dishes/noodles_singapuri_chicken.webp' : (isEgg ? '/assets/dishes/noodles_singapuri_egg.webp' : '/assets/dishes/noodles_singapuri_veg.webp');
+  if (target.includes('hakka noodle')) return isNonVeg ? '/assets/dishes/noodles_hakka_chicken.webp' : (isEgg ? '/assets/dishes/noodles_hakka_egg.webp' : '/assets/dishes/noodles_hakka_veg.webp');
+  if (target.includes('schezwan noodle')) return isNonVeg ? '/assets/dishes/noodles_schezwan_chicken.webp' : (isEgg ? '/assets/dishes/noodles_schezwan_egg.webp' : '/assets/dishes/noodles_schezwan_veg.webp');
+  if (target.includes('noodle') || target.includes('chowmein')) return isNonVeg ? '/assets/dishes/noodles_street_chicken.webp' : (isEgg ? '/assets/dishes/noodles_street_egg.webp' : '/assets/dishes/noodles_street_veg.webp');
 
   if (target.includes('chilli paneer')) return '/assets/dishes/chilli_paneer.webp';
   if (target.includes('manchurian')) return target.includes('chicken') ? '/assets/dishes/chicken_manchurian.webp' : '/assets/dishes/manchurian_veg.webp';
