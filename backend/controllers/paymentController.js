@@ -130,8 +130,12 @@ const createCashfreeOrder = async (req, res) => {
       order_meta: orderMeta,
     };
 
-    // Apply Developer Easy Split if configured
-    if (restaurant?.developerSplitVendorId && (restaurant?.developerSplitPercentage > 0)) {
+    // Apply Developer Easy Split only if explicitly enabled
+    if (
+      restaurant?.developerSplitEnabled &&
+      restaurant?.developerSplitVendorId &&
+      restaurant?.developerSplitPercentage > 0
+    ) {
       requestBody.order_splits = [
         {
           vendor_id: restaurant.developerSplitVendorId,
@@ -141,7 +145,7 @@ const createCashfreeOrder = async (req, res) => {
     }
 
     // Call Cashfree PG Orders API
-    const response = await fetch(`${baseUrl}/orders`, {
+    let response = await fetch(`${baseUrl}/orders`, {
       method: 'POST',
       headers: {
         'x-client-id': appId.trim(),
@@ -152,7 +156,27 @@ const createCashfreeOrder = async (req, res) => {
       body: JSON.stringify(requestBody),
     });
 
-    const data = await response.json();
+    let data = await response.json();
+
+    // If order creation failed due to Easy Split (merchant doesn't have Easy Split activated or vendor unapproved)
+    // Automatically fallback and proceed without order_splits so customer checkout never gets blocked!
+    if ((!response.ok || !data.payment_session_id) && requestBody.order_splits) {
+      console.warn('Cashfree order failed with order_splits. Retrying without easy split so payment proceeds:', data.message);
+      delete requestBody.order_splits;
+
+      response = await fetch(`${baseUrl}/orders`, {
+        method: 'POST',
+        headers: {
+          'x-client-id': appId.trim(),
+          'x-client-secret': secretKey.trim(),
+          'x-api-version': '2023-08-01',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      data = await response.json();
+    }
 
     if (!response.ok || !data.payment_session_id) {
       console.error('Cashfree PG order creation error:', data);

@@ -65,6 +65,10 @@ const RestaurantSchema = new mongoose.Schema(
       default: true,
     },
     // Developer / Platform Fee Split Settings (Easy Split)
+    developerSplitEnabled: {
+      type: Boolean,
+      default: false,
+    },
     developerSplitVendorId: {
       type: String,
       default: '',

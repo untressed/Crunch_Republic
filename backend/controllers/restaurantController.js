@@ -97,6 +97,7 @@ const updateRestaurantProfile = async (req, res) => {
       cashfreeSecretKey: req.body.cashfreeSecretKey !== undefined ? req.body.cashfreeSecretKey : restaurant.cashfreeSecretKey,
       cashfreeEnvironment: req.body.cashfreeEnvironment !== undefined ? req.body.cashfreeEnvironment : restaurant.cashfreeEnvironment,
       cashfreeEnabled: req.body.cashfreeEnabled !== undefined ? req.body.cashfreeEnabled : restaurant.cashfreeEnabled,
+      developerSplitEnabled: req.body.developerSplitEnabled !== undefined ? req.body.developerSplitEnabled : restaurant.developerSplitEnabled,
       developerSplitVendorId: req.body.developerSplitVendorId !== undefined ? req.body.developerSplitVendorId : restaurant.developerSplitVendorId,
       developerSplitPercentage: req.body.developerSplitPercentage !== undefined ? Number(req.body.developerSplitPercentage) : restaurant.developerSplitPercentage,
     };

@@ -33,6 +33,7 @@ const Profile = () => {
   const [cashfreeSecretKey, setCashfreeSecretKey] = useState('');
   const [cashfreeEnvironment, setCashfreeEnvironment] = useState('sandbox');
   const [cashfreeEnabled, setCashfreeEnabled] = useState(true);
+  const [developerSplitEnabled, setDeveloperSplitEnabled] = useState(false);
   const [developerSplitVendorId, setDeveloperSplitVendorId] = useState('');
   const [developerSplitPercentage, setDeveloperSplitPercentage] = useState(5);
   const [loading, setLoading] = useState(false);
@@ -51,6 +52,7 @@ const Profile = () => {
       setCashfreeSecretKey(restaurant.cashfreeSecretKey || '');
       setCashfreeEnvironment(restaurant.cashfreeEnvironment || 'sandbox');
       setCashfreeEnabled(restaurant.cashfreeEnabled ?? true);
+      setDeveloperSplitEnabled(restaurant.developerSplitEnabled || false);
       setDeveloperSplitVendorId(restaurant.developerSplitVendorId || '');
       setDeveloperSplitPercentage(restaurant.developerSplitPercentage !== undefined ? restaurant.developerSplitPercentage : 5);
     }
@@ -97,6 +99,7 @@ const Profile = () => {
           cashfreeSecretKey,
           cashfreeEnvironment,
           cashfreeEnabled,
+          developerSplitEnabled,
           developerSplitVendorId,
           developerSplitPercentage,
         }),
@@ -345,6 +348,23 @@ const Profile = () => {
                             className="w-full pl-9 pr-4 py-2.5 surface-input font-medium font-mono text-xs"
                           />
                         </div>
+                      </div>
+
+                      {/* Cashfree Easy Split Enable Toggle */}
+                      <div className="md:col-span-2 flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div>
+                          <h4 className="text-xs font-bold text-slate-800 uppercase tracking-tight">Enable Cashfree Easy Split</h4>
+                          <p className="text-[11px] text-slate-500">Keep disabled until Easy Split is active & approved on your Cashfree merchant account</p>
+                        </div>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={developerSplitEnabled}
+                            onChange={(e) => setDeveloperSplitEnabled(e.target.checked)}
+                            className="sr-only peer"
+                          />
+                          <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+                        </label>
                       </div>
 
                       {/* Developer Split Vendor ID */}
