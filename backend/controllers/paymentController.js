@@ -86,6 +86,36 @@ const createCashfreeOrder = async (req, res) => {
       });
     }
 
+    // Resolve clean HTTPS protocol for production webhooks and customer redirects
+    const host = req.get('host') || 'menu.thecrunchrepublic.com';
+    const isHttps = req.headers['x-forwarded-proto'] === 'https' || req.secure || host.includes('thecrunchrepublic.com');
+    const protocol = isHttps ? 'https' : (req.protocol || 'http');
+
+    let origin = req.headers.origin;
+    if (!origin && req.headers.referer) {
+      try {
+        origin = new URL(req.headers.referer).origin;
+      } catch (e) {}
+    }
+    if (!origin) {
+      origin = `${protocol}://${host}`;
+    }
+    if (origin.includes('thecrunchrepublic.com') && origin.startsWith('http://')) {
+      origin = origin.replace('http://', 'https://');
+    }
+
+    const orderMeta = {
+      return_url: `${origin}/?order_id=${order._id}&cf_id={order_id}`,
+      payment_methods: 'upi,cc,dc,nb',
+    };
+
+    // Cashfree PG strictly requires notify_url to start with https://.
+    // In production or HTTPS environments, supply the secure webhook URL.
+    // For local HTTP without an HTTPS tunnel, omit notify_url so Cashfree does not reject the order.
+    if (isHttps) {
+      orderMeta.notify_url = `https://${host}/api/payment/cashfree/webhook`;
+    }
+
     // Prepare Cashfree API payload
     const requestBody = {
       order_id: cashfreeOrderId,
@@ -97,11 +127,7 @@ const createCashfreeOrder = async (req, res) => {
         customer_phone: cleanPhone,
         customer_email: 'guest@crunchrepublic.com',
       },
-      order_meta: {
-        return_url: `${req.headers.origin || 'http://localhost:24000'}/menu?order_id=${order._id}&cf_id={order_id}`,
-        notify_url: `${req.protocol}://${req.get('host')}/api/payment/cashfree/webhook`,
-        payment_methods: 'upi,cc,dc,nb',
-      },
+      order_meta: orderMeta,
     };
 
     // Apply Developer Easy Split if configured
