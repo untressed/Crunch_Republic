@@ -929,29 +929,41 @@ const CustomerMenu = () => {
     return filteredDishes.filter((d) => !d.category || !catIds.has(d.category._id));
   }, [categories, filteredDishes]);
 
-  // 1. Instant Zero-CLS Skeleton Screen (Matches exact layout geometry of the real menu)
+  // 1. Instant Zero-CLS Skeleton Screen (Matches exact layout geometry of the new UI)
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-900 flex justify-center selection:bg-brand-500 selection:text-white">
-        <main className="w-full max-w-md bg-slate-50 min-h-screen flex flex-col relative shadow-2xl">
-          {/* Header Skeleton */}
-          <header className="bg-stone-900 text-stone-100 p-4 border-b border-stone-800 shrink-0">
-            <div className="flex items-center justify-center">
-              <CrunchLogo variant="full" isDark size="sm" />
-            </div>
-            {/* Status bar */}
-            <div className="mt-3 px-3 py-2 bg-stone-800/90 rounded-2xl border border-stone-700/80 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-stone-700/70 animate-pulse"></div>
-                <div className="w-28 h-4 bg-stone-700 rounded animate-pulse"></div>
+        <main className="w-full max-w-md bg-[#F8FAFC] min-h-screen flex flex-col relative shadow-2xl border-x border-slate-200">
+          
+          {/* Header Skeleton (Left Logo + Right Circular Button) */}
+          <header className="bg-[#121214] border-b border-[#1E1E24] px-4 py-3 sticky top-0 z-30 shadow-lg text-white">
+            <div className="flex items-center justify-between gap-3">
+              {/* Left: Branding Logo */}
+              <div className="flex items-center">
+                <CrunchLogo 
+                  variant="full" 
+                  isDark={true} 
+                  size="sm" 
+                  color="#dc2626"
+                  markClassName="w-9 h-9 shrink-0 drop-shadow-sm" 
+                />
+              </div>
+
+              {/* Right: Circular Profile Button Skeleton */}
+              <div className="w-11 h-11 rounded-full bg-[#1E1E24] border-2 border-amber-500/30 flex items-center justify-center animate-pulse">
+                <div className="w-5 h-5 rounded-full bg-stone-700/60"></div>
               </div>
             </div>
-            {/* Dual Navigation Tabs Skeleton */}
-            <div className="grid grid-cols-2 gap-2 mt-2.5 p-1 bg-stone-800 rounded-xl border border-stone-700">
-              <div className="h-8 rounded-lg bg-brand-600/60 animate-pulse"></div>
-              <div className="h-8 rounded-lg bg-stone-700/50 animate-pulse"></div>
-            </div>
           </header>
+
+          {/* Promo Strip Skeleton */}
+          <div className="bg-gradient-to-r from-red-950/40 via-stone-900 to-amber-950/40 p-2.5 px-4 border-b border-stone-800 flex items-center justify-between gap-3 animate-pulse">
+            <div className="flex items-center gap-2 flex-1">
+              <div className="w-6 h-6 rounded-lg bg-stone-800"></div>
+              <div className="w-36 h-3.5 bg-stone-800 rounded"></div>
+            </div>
+            <div className="w-20 h-6 bg-stone-800 rounded-xl"></div>
+          </div>
 
           {/* Search & Veg Toggle Bar Skeleton */}
           <div className="p-3 bg-white border-b border-slate-100 flex items-center gap-2">
@@ -961,25 +973,39 @@ const CustomerMenu = () => {
 
           {/* Categories Horizontal Pills Skeleton */}
           <div className="px-3 py-2 bg-white/95 border-b border-slate-100 flex gap-1.5 overflow-hidden">
-            {[1, 2, 3, 4, 5].map((i) => (
+            <div className="h-7 w-16 rounded-full bg-red-600/30 animate-pulse shrink-0"></div>
+            {[1, 2, 3, 4].map((i) => (
               <div key={i} className="h-7 w-20 rounded-full bg-slate-100 animate-pulse shrink-0"></div>
             ))}
           </div>
 
           {/* Dishes List Skeleton */}
-          <div className="p-3 space-y-2.5 flex-1">
+          <div className="p-3 space-y-3 flex-1 pb-24">
             <div className="w-28 h-4 bg-slate-200 rounded animate-pulse mb-1"></div>
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="bg-white border border-slate-200/80 rounded-2xl p-3 shadow-xs flex justify-between gap-3 items-center">
                 <div className="flex-1 space-y-2 pr-1">
-                  <div className="w-12 h-3 bg-slate-100 rounded"></div>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3.5 h-3.5 rounded-xs bg-slate-100 animate-pulse"></div>
+                    <div className="w-12 h-2.5 bg-slate-100 rounded"></div>
+                  </div>
                   <div className="w-3/4 h-4 bg-slate-200 rounded animate-pulse"></div>
-                  <div className="w-16 h-3 bg-slate-100 rounded"></div>
+                  <div className="w-16 h-3 bg-red-100 rounded animate-pulse"></div>
+                  <div className="w-5/6 h-2.5 bg-slate-100 rounded"></div>
                 </div>
-                <div className="w-24 h-24 rounded-xl bg-slate-100 animate-pulse shrink-0"></div>
+                <div className="relative w-24 h-24 shrink-0 flex flex-col items-center justify-end">
+                  <div className="w-full h-full rounded-xl bg-slate-100 animate-pulse"></div>
+                  <div className="absolute -bottom-2 w-20 h-6 rounded-lg bg-red-50 border border-red-200 animate-pulse"></div>
+                </div>
               </div>
             ))}
           </div>
+
+          {/* Bottom-Right Floating Cart Button Skeleton */}
+          <div className="fixed bottom-6 left-0 right-0 max-w-md mx-auto px-4 flex justify-end z-40 pointer-events-none">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-red-600/30 to-amber-500/30 border-2 border-white shadow-xl animate-pulse"></div>
+          </div>
+
         </main>
       </div>
     );
