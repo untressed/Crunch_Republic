@@ -1045,14 +1045,14 @@ const CustomerMenu = () => {
           </div>
         </div>
 
-        {/* 3. DUAL NAVIGATION TABS: [MENU] | [MY TABLE & BILL] */}
-        <div className="grid grid-cols-2 gap-2 mt-2.5 p-1 bg-stone-800 rounded-xl border border-stone-700">
+        {/* 3. NAVIGATION BUTTONS: [FOOD MENU] and [MY ORDER] */}
+        <div className="flex items-center gap-2.5 mt-3">
           <button
             onClick={() => setActiveTab('menu')}
-            className={`py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-2.5 px-4 rounded-2xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs ${
               activeTab === 'menu'
-                ? 'bg-brand-600 text-white shadow-sm'
-                : 'text-stone-400 hover:text-white'
+                ? 'bg-gradient-to-r from-brand-600 to-rose-600 text-white shadow-brand-600/30 scale-[1.01] ring-2 ring-brand-400/30'
+                : 'bg-stone-800/90 hover:bg-stone-800 text-stone-300 border border-stone-700/80 active:scale-95'
             }`}
           >
             <Utensils className="w-3.5 h-3.5" />
@@ -1064,16 +1064,16 @@ const CustomerMenu = () => {
               setActiveTab('bill');
               fetchTableOrders();
             }}
-            className={`py-2 text-xs font-black uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-1.5 relative ${
+            className={`flex-1 py-2.5 px-4 rounded-2xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs relative ${
               activeTab === 'bill'
-                ? 'bg-brand-600 text-white shadow-sm'
-                : 'text-stone-400 hover:text-white'
+                ? 'bg-gradient-to-r from-brand-600 to-rose-600 text-white shadow-brand-600/30 scale-[1.01] ring-2 ring-brand-400/30'
+                : 'bg-stone-800/90 hover:bg-stone-800 text-stone-300 border border-stone-700/80 active:scale-95'
             }`}
           >
-            <Receipt className="w-3.5 h-3.5" />
-            <span>Table Bill</span>
+            <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
+            <span>My Order</span>
             {tableOrders.length > 0 && (
-              <span className="w-4 h-4 rounded-full bg-amber-400 text-stone-900 text-[9px] font-black flex items-center justify-center">
+              <span className="min-w-[18px] h-[18px] px-1 rounded-full bg-amber-400 text-stone-950 text-[10px] font-black flex items-center justify-center shadow-xs">
                 {tableOrders.length}
               </span>
             )}
@@ -1461,7 +1461,7 @@ const CustomerMenu = () => {
               <div>
                 <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider">No Orders Placed Yet</h3>
                 <p className="text-[11px] text-slate-400 mt-1 max-w-xs mx-auto">
-                  Browse the menu and place your first order. Your itemized table bill and real-time food tracking will appear here.
+                  Browse the menu and place your first order. Your active orders, live kitchen cooking status, and bill receipt will appear here.
                 </p>
               </div>
               <button
