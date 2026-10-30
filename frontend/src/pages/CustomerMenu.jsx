@@ -2265,235 +2265,246 @@ const CustomerMenu = () => {
       )}
 
       {/* ========================================================= */}
-      {/* 5. GUEST PROFILE, OFFERS & MY ORDERS (TOP-RIGHT CORNER MODAL) */}
+      {/* 5. GUEST PROFILE, OFFERS & MY ORDERS (RIGHT SIDEBAR DRAWER)*/}
       {/* ========================================================= */}
       {isProfileDrawerOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end items-start p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs animate-fade-in">
-          {/* Backdrop (tap to dismiss) */}
-          <div className="absolute inset-0" onClick={() => setIsProfileDrawerOpen(false)} />
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          {/* Backdrop (Dark overlay with blur, click to dismiss) */}
+          <div 
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity animate-fade-in"
+            onClick={() => setIsProfileDrawerOpen(false)} 
+          />
 
-          {/* Top-Right Corner Modal Card (Anchored right below profile button) */}
-          <div className="w-full max-w-[360px] sm:max-w-[380px] bg-white rounded-3xl shadow-2xl border border-slate-200/90 p-4 sm:p-5 space-y-3.5 relative z-10 animate-scale-in max-h-[85vh] flex flex-col overflow-y-auto mt-14 mr-1 sm:mr-[max(0.5rem,calc((100vw-28rem)/2))]">
-            
-            {/* Top-right anchor pointer arrow */}
-            <div className="absolute -top-1.5 right-5 w-3.5 h-3.5 bg-white border-t border-l border-slate-200 rotate-45 transform" />
-
-            {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3 shrink-0">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-full bg-[#121214] text-[#F59E0B] border border-[#2E2E38] flex items-center justify-center font-black shadow-md">
-                  <User className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight">Guest Profile & Perks</h3>
-                  <p className="text-[11px] text-slate-400 font-medium">Crunch Republic Rewards & Dining</p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsProfileDrawerOpen(false)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors"
-                title="Close"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Customer Information Card */}
-            <div className="p-3 bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl border border-slate-200/80 space-y-1.5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-xs font-black text-slate-800">
-                    {customerName || 'Valued Diner'}
+          {/* Right Sidebar Slide-over Panel (Full Height from Right) */}
+          <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div className="w-screen max-w-sm sm:max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col justify-between animate-slide-in-right h-full">
+              
+              {/* Sidebar Header */}
+              <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-stone-900 to-stone-950 text-white shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#121214] text-[#F59E0B] border border-[#2E2E38] flex items-center justify-center font-black shadow-md">
+                    <User className="w-5 h-5" />
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono">
-                    {customerMobile ? `+91 ${customerMobile}` : 'Direct Guest'}
+                  <div>
+                    <h3 className="text-sm font-black text-white uppercase tracking-tight">Guest Profile & Perks</h3>
+                    <p className="text-[11px] text-stone-400 font-medium">Crunch Republic Rewards & Dining</p>
                   </div>
                 </div>
-                <div className="px-2.5 py-1 rounded-full bg-[#121214] text-[#F59E0B] text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-xs border border-stone-800">
-                  <MapPin className="w-3 h-3 text-[#F59E0B]" />
-                  <span>{isCompanyDelivery ? (companyName || 'Corporate') : (tableParam ? `Table ${tableNumber}` : 'Takeaway')}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Section 1: My Active Orders */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                  <ChefHat className="w-3.5 h-3.5 text-[#DC2626]" />
-                  <span>My Active Orders</span>
-                </span>
-                {tableOrders.length > 0 && (
-                  <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    {tableOrders.length} {tableOrders.length === 1 ? 'Order' : 'Orders'} Live
-                  </span>
-                )}
-              </div>
-
-              {tableOrders.length > 0 ? (
-                <div 
-                  onClick={() => {
-                    setIsProfileDrawerOpen(false);
-                    setActiveTab('bill');
-                    fetchTableOrders();
-                  }}
-                  className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-slate-50 border border-emerald-300 hover:border-emerald-400 cursor-pointer transition-all flex items-center justify-between group active:scale-98"
+                <button
+                  type="button"
+                  onClick={() => setIsProfileDrawerOpen(false)}
+                  className="w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white flex items-center justify-center transition-colors"
+                  title="Close sidebar"
+                  aria-label="Close sidebar"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-500/20">
-                      <Receipt className="w-4 h-4" />
-                    </div>
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Scrollable Sidebar Body */}
+              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
+                
+                {/* Customer Information Card */}
+                <div className="p-3.5 bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl border border-slate-200/80 space-y-2">
+                  <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
-                        Live Kitchen Status & Bill
+                      <div className="text-xs font-black text-slate-800">
+                        {customerName || 'Valued Diner'}
                       </div>
-                      <div className="text-[10px] text-slate-500">
-                        Tap to track food & view receipt
+                      <div className="text-[11px] text-slate-500 font-mono">
+                        {customerMobile ? `+91 ${customerMobile}` : 'Direct Guest'}
                       </div>
+                    </div>
+                    <div className="px-2.5 py-1 rounded-full bg-[#121214] text-[#F59E0B] text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-xs border border-stone-800">
+                      <MapPin className="w-3 h-3 text-[#F59E0B]" />
+                      <span>{isCompanyDelivery ? (companyName || 'Corporate') : (tableParam ? `Table ${tableNumber}` : 'Takeaway')}</span>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
                 </div>
-              ) : (
-                <div className="p-3 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center space-y-0.5">
-                  <div className="text-xs font-bold text-slate-600">No active dining orders right now</div>
-                  <div className="text-[10px] text-slate-400">Order from our menu and watch live kitchen progress here</div>
-                </div>
-              )}
-            </div>
 
-            {/* Section 2: Coupons & Exclusive Offers */}
-            <div className="space-y-2">
-              <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                <Ticket className="w-3.5 h-3.5 text-[#F59E0B]" />
-                <span>Exclusive Offers & Coupons</span>
-              </span>
-
-              {activeOffers && activeOffers.length > 0 ? (
+                {/* Section 1: My Active Orders */}
                 <div className="space-y-2">
-                  {activeOffers.map((offer) => {
-                    const isApplied = appliedCoupon && appliedCoupon.code === offer.code;
-                    return (
-                      <div
-                        key={offer._id || offer.code}
-                        className={`p-2.5 rounded-2xl border transition-all flex items-center justify-between gap-2.5 ${
-                          isApplied
-                            ? 'bg-emerald-50/70 border-emerald-300'
-                            : 'bg-amber-50/40 border-amber-200/70 hover:border-amber-300'
-                        }`}
-                      >
-                        <div className="flex items-start gap-2 min-w-0">
-                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
-                            isApplied ? 'bg-emerald-500 text-white' : 'bg-amber-100 text-amber-700'
-                          }`}>
-                            <Tag className="w-3.5 h-3.5" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                      <ChefHat className="w-3.5 h-3.5 text-[#DC2626]" />
+                      <span>My Active Orders</span>
+                    </span>
+                    {tableOrders.length > 0 && (
+                      <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                        {tableOrders.length} {tableOrders.length === 1 ? 'Order' : 'Orders'} Live
+                      </span>
+                    )}
+                  </div>
+
+                  {tableOrders.length > 0 ? (
+                    <div 
+                      onClick={() => {
+                        setIsProfileDrawerOpen(false);
+                        setActiveTab('bill');
+                        fetchTableOrders();
+                      }}
+                      className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-slate-50 border border-emerald-300 hover:border-emerald-400 cursor-pointer transition-all flex items-center justify-between group active:scale-98"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-500/20">
+                          <Receipt className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <div className="text-xs font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                            Live Kitchen Status & Bill
                           </div>
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-mono font-black text-xs text-slate-900 tracking-wide">
-                                {offer.code}
-                              </span>
-                              <span className="text-[9px] font-extrabold uppercase bg-red-50 text-[#DC2626] px-1 py-0.2 rounded border border-red-200/60">
-                                {offer.discountType === 'percentage' ? `${offer.discountValue}% OFF` : `₹${offer.discountValue} OFF`}
-                              </span>
-                            </div>
-                            <div className="text-[10px] text-slate-500 truncate mt-0.5">
-                              {offer.description || (offer.minOrderAmount ? `Min order ₹${offer.minOrderAmount}` : 'Valid on all items')}
-                            </div>
+                          <div className="text-[11px] text-slate-500">
+                            Tap to track food & view receipt
                           </div>
                         </div>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
+                    </div>
+                  ) : (
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center space-y-1">
+                      <div className="text-xs font-bold text-slate-600">No active dining orders right now</div>
+                      <div className="text-[10px] text-slate-400">Order from our menu and watch live kitchen progress here</div>
+                    </div>
+                  )}
+                </div>
 
+                {/* Section 2: Coupons & Exclusive Offers */}
+                <div className="space-y-2">
+                  <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                    <Ticket className="w-3.5 h-3.5 text-[#F59E0B]" />
+                    <span>Exclusive Offers & Coupons</span>
+                  </span>
+
+                  {activeOffers && activeOffers.length > 0 ? (
+                    <div className="space-y-2.5">
+                      {activeOffers.map((offer) => {
+                        const isApplied = appliedCoupon && appliedCoupon.code === offer.code;
+                        return (
+                          <div
+                            key={offer._id || offer.code}
+                            className={`p-3 rounded-2xl border transition-all flex items-center justify-between gap-2.5 ${
+                              isApplied
+                                ? 'bg-emerald-50/70 border-emerald-300'
+                                : 'bg-amber-50/40 border-amber-200/70 hover:border-amber-300'
+                            }`}
+                          >
+                            <div className="flex items-start gap-2.5 min-w-0">
+                              <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                                isApplied ? 'bg-emerald-500 text-white' : 'bg-amber-100 text-amber-700'
+                              }`}>
+                                <Tag className="w-4 h-4" />
+                              </div>
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="font-mono font-black text-xs text-slate-900 tracking-wide">
+                                    {offer.code}
+                                  </span>
+                                  <span className="text-[9px] font-extrabold uppercase bg-red-50 text-[#DC2626] px-1.5 py-0.2 rounded border border-red-200/60">
+                                    {offer.discountType === 'percentage' ? `${offer.discountValue}% OFF` : `₹${offer.discountValue} OFF`}
+                                  </span>
+                                </div>
+                                <div className="text-[10px] text-slate-500 truncate mt-0.5">
+                                  {offer.description || (offer.minOrderAmount ? `Min order ₹${offer.minOrderAmount}` : 'Valid on all items')}
+                                </div>
+                              </div>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (!isApplied) {
+                                  handleApplyCoupon(offer.code);
+                                  setIsProfileDrawerOpen(false);
+                                  setIsCartOpen(true);
+                                }
+                              }}
+                              disabled={isApplied}
+                              className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shrink-0 active:scale-95 ${
+                                isApplied
+                                  ? 'bg-emerald-600 text-white cursor-default'
+                                  : 'bg-[#121214] hover:bg-[#1E1E24] text-white shadow-xs'
+                              }`}
+                            >
+                              {isApplied ? 'Applied ✓' : 'Apply Code'}
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
+                      <div className="text-xs font-bold text-slate-600">Have a coupon code?</div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          placeholder="ENTER PROMO CODE"
+                          value={couponInput}
+                          onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                          className="flex-1 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono font-bold uppercase tracking-wider focus:outline-hidden focus:border-brand-500"
+                        />
                         <button
                           type="button"
+                          disabled={validatingCoupon || !couponInput.trim()}
                           onClick={() => {
-                            if (!isApplied) {
-                              handleApplyCoupon(offer.code);
-                              setIsProfileDrawerOpen(false);
-                              setIsCartOpen(true);
-                            }
+                            handleApplyCoupon();
+                            setIsProfileDrawerOpen(false);
+                            setIsCartOpen(true);
                           }}
-                          disabled={isApplied}
-                          className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shrink-0 active:scale-95 ${
-                            isApplied
-                              ? 'bg-emerald-600 text-white cursor-default'
-                              : 'bg-[#121214] hover:bg-[#1E1E24] text-white shadow-xs'
-                          }`}
+                          className="px-3.5 py-2 bg-[#121214] hover:bg-[#1E1E24] disabled:opacity-50 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0"
                         >
-                          {isApplied ? 'Applied ✓' : 'Apply Code'}
+                          {validatingCoupon ? 'Checking...' : 'Apply'}
                         </button>
                       </div>
-                    );
-                  })}
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
-                  <div className="text-xs font-bold text-slate-600">Have a coupon code?</div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      placeholder="ENTER PROMO CODE"
-                      value={couponInput}
-                      onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                      className="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-mono font-bold uppercase tracking-wider focus:outline-hidden focus:border-brand-500"
-                    />
-                    <button
-                      type="button"
-                      disabled={validatingCoupon || !couponInput.trim()}
-                      onClick={() => {
-                        handleApplyCoupon();
+
+                {/* Section 3: Dining Quick Utilities */}
+                <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleRequestBill('cash');
+                      setIsProfileDrawerOpen(false);
+                    }}
+                    className="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center gap-1.5 text-xs font-bold transition-all active:scale-95"
+                  >
+                    <BellRing className="w-4 h-4 text-[#F59E0B]" />
+                    <span>Call Staff</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (tableOrders.length > 0) {
+                        handleOpenInvoice();
                         setIsProfileDrawerOpen(false);
-                        setIsCartOpen(true);
-                      }}
-                      className="px-3 py-1.5 bg-[#121214] hover:bg-[#1E1E24] disabled:opacity-50 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0"
-                    >
-                      {validatingCoupon ? 'Checking...' : 'Apply'}
-                    </button>
-                  </div>
+                      } else {
+                        setActiveTab('menu');
+                        setIsProfileDrawerOpen(false);
+                      }
+                    }}
+                    className="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center gap-1.5 text-xs font-bold transition-all active:scale-95"
+                  >
+                    <Printer className="w-4 h-4 text-[#DC2626]" />
+                    <span>Tax Invoice</span>
+                  </button>
                 </div>
-              )}
+
+              </div>
+
+              {/* Sidebar Footer */}
+              <div className="p-4 border-t border-slate-100 bg-slate-50 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setIsProfileDrawerOpen(false)}
+                  className="w-full py-3 bg-[#121214] hover:bg-[#1E1E24] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-md active:scale-98"
+                >
+                  Done & Return to Menu
+                </button>
+              </div>
+
             </div>
-
-            {/* Section 3: Dining Quick Utilities */}
-            <div className="pt-1.5 border-t border-slate-100 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  handleRequestBill('cash');
-                  setIsProfileDrawerOpen(false);
-                }}
-                className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center gap-1.5 text-xs font-bold transition-all active:scale-95"
-              >
-                <BellRing className="w-3.5 h-3.5 text-[#F59E0B]" />
-                <span>Call Staff</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  if (tableOrders.length > 0) {
-                    handleOpenInvoice();
-                    setIsProfileDrawerOpen(false);
-                  } else {
-                    setActiveTab('menu');
-                    setIsProfileDrawerOpen(false);
-                  }
-                }}
-                className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center gap-1.5 text-xs font-bold transition-all active:scale-95"
-              >
-                <Printer className="w-3.5 h-3.5 text-[#DC2626]" />
-                <span>Tax Invoice</span>
-              </button>
-            </div>
-
-            {/* Bottom Done Button */}
-            <button
-              type="button"
-              onClick={() => setIsProfileDrawerOpen(false)}
-              className="w-full py-2.5 bg-[#121214] hover:bg-[#1E1E24] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0"
-            >
-              Done & Return to Menu
-            </button>
           </div>
         </div>
       )}
