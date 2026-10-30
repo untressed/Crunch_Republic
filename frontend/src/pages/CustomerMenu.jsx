@@ -1020,13 +1020,14 @@ const CustomerMenu = () => {
       <header className="bg-[#121214] border-b border-[#1E1E24] px-4 py-3 sticky top-0 z-30 shadow-lg text-white">
         <div className="flex items-center justify-between gap-3">
           {/* Left: Branding Logo (Republic Crimson #DC2626) */}
-          <a href={getMainUrl('/')} title="Back to Crunch Republic Website" className="hover:opacity-90 transition-opacity flex items-center">
+          <a href={getMainUrl('/')} title="Back to Crunch Republic Website" className="hover:opacity-90 transition-opacity flex items-center shrink-0">
             <CrunchLogo 
               variant="full" 
               isDark={true} 
               size="sm" 
+              showTagline={false}
               color="#dc2626"
-              markClassName="w-9 h-9 shrink-0 drop-shadow-sm" 
+              markClassName="w-8 h-8 shrink-0 drop-shadow-sm" 
             />
           </a>
 
@@ -1628,7 +1629,7 @@ const CustomerMenu = () => {
               fetchTableOrders();
             }
           }}
-          className={`fixed bottom-24 right-5 z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform active:scale-90 border-2 ${
+          className={`fixed bottom-24 right-5 sm:right-[max(1.25rem,calc((100vw-28rem)/2+1.25rem))] z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform active:scale-90 border-2 ${
             activeTab === 'bill'
               ? 'bg-[#121214] border-white text-white ring-4 ring-black/20'
               : 'bg-[#121214] border-emerald-400 text-emerald-400 ring-4 ring-emerald-500/20 hover:scale-105'
@@ -1657,7 +1658,7 @@ const CustomerMenu = () => {
         <button
           type="button"
           onClick={() => setIsCartOpen(true)}
-          className={`fixed bottom-6 right-5 z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform active:scale-90 border-2 ${
+          className={`fixed bottom-6 right-5 sm:right-[max(1.25rem,calc((100vw-28rem)/2+1.25rem))] z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform active:scale-90 border-2 ${
             cart.length > 0
               ? 'bg-gradient-to-tr from-[#DC2626] via-rose-600 to-[#F59E0B] border-white text-white ring-4 ring-[#DC2626]/30 hover:scale-105 animate-bounce-subtle'
               : 'bg-[#121214] border-[#1E1E24] text-stone-300 ring-2 ring-stone-900 hover:scale-105'
@@ -2264,18 +2265,23 @@ const CustomerMenu = () => {
       )}
 
       {/* ========================================================= */}
-      {/* 5. GUEST PROFILE, OFFERS & MY ORDERS BOTTOM SHEET DRAWER  */}
+      {/* 5. GUEST PROFILE, OFFERS & MY ORDERS (TOP-RIGHT CORNER MODAL) */}
       {/* ========================================================= */}
       {isProfileDrawerOpen && (
-        <div className="fixed inset-0 z-50 flex justify-center items-end bg-slate-950/70 backdrop-blur-xs animate-fade-in">
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-50 flex justify-end items-start p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs animate-fade-in">
+          {/* Backdrop (tap to dismiss) */}
           <div className="absolute inset-0" onClick={() => setIsProfileDrawerOpen(false)} />
 
-          <div className="w-full max-w-md bg-white rounded-t-3xl shadow-2xl p-5 space-y-4 relative z-10 animate-slide-up max-h-[88vh] flex flex-col overflow-y-auto">
-            {/* Drawer Header */}
+          {/* Top-Right Corner Modal Card (Anchored right below profile button) */}
+          <div className="w-full max-w-[360px] sm:max-w-[380px] bg-white rounded-3xl shadow-2xl border border-slate-200/90 p-4 sm:p-5 space-y-3.5 relative z-10 animate-scale-in max-h-[85vh] flex flex-col overflow-y-auto mt-14 mr-1 sm:mr-[max(0.5rem,calc((100vw-28rem)/2))]">
+            
+            {/* Top-right anchor pointer arrow */}
+            <div className="absolute -top-1.5 right-5 w-3.5 h-3.5 bg-white border-t border-l border-slate-200 rotate-45 transform" />
+
+            {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-3 shrink-0">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-stone-900 to-stone-800 text-amber-400 border border-stone-700 flex items-center justify-center font-black shadow-md">
+                <div className="w-10 h-10 rounded-full bg-[#121214] text-[#F59E0B] border border-[#2E2E38] flex items-center justify-center font-black shadow-md">
                   <User className="w-5 h-5" />
                 </div>
                 <div>
@@ -2294,7 +2300,7 @@ const CustomerMenu = () => {
             </div>
 
             {/* Customer Information Card */}
-            <div className="p-3.5 bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl border border-slate-200/80 space-y-2">
+            <div className="p-3 bg-gradient-to-br from-slate-50 to-stone-50 rounded-2xl border border-slate-200/80 space-y-1.5">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-xs font-black text-slate-800">
@@ -2304,18 +2310,18 @@ const CustomerMenu = () => {
                     {customerMobile ? `+91 ${customerMobile}` : 'Direct Guest'}
                   </div>
                 </div>
-                <div className="px-2.5 py-1 rounded-full bg-stone-900 text-amber-300 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-xs">
-                  <MapPin className="w-3 h-3 text-amber-400" />
+                <div className="px-2.5 py-1 rounded-full bg-[#121214] text-[#F59E0B] text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-xs border border-stone-800">
+                  <MapPin className="w-3 h-3 text-[#F59E0B]" />
                   <span>{isCompanyDelivery ? (companyName || 'Corporate') : (tableParam ? `Table ${tableNumber}` : 'Takeaway')}</span>
                 </div>
               </div>
             </div>
 
-            {/* Section 1: My Orders & Kitchen Status */}
+            {/* Section 1: My Active Orders */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                  <ChefHat className="w-3.5 h-3.5 text-brand-600" />
+                  <ChefHat className="w-3.5 h-3.5 text-[#DC2626]" />
                   <span>My Active Orders</span>
                 </span>
                 {tableOrders.length > 0 && (
@@ -2332,25 +2338,25 @@ const CustomerMenu = () => {
                     setActiveTab('bill');
                     fetchTableOrders();
                   }}
-                  className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-slate-50 border border-emerald-300 hover:border-emerald-400 cursor-pointer transition-all flex items-center justify-between group active:scale-98"
+                  className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-slate-50 border border-emerald-300 hover:border-emerald-400 cursor-pointer transition-all flex items-center justify-between group active:scale-98"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-500/20">
-                      <Receipt className="w-5 h-5" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-500/20">
+                      <Receipt className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="text-xs font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
                         Live Kitchen Status & Bill
                       </div>
-                      <div className="text-[11px] text-slate-500">
-                        Tap to track food cooking & view receipt
+                      <div className="text-[10px] text-slate-500">
+                        Tap to track food & view receipt
                       </div>
                     </div>
                   </div>
                   <ChevronRight className="w-4 h-4 text-emerald-600 group-hover:translate-x-0.5 transition-transform" />
                 </div>
               ) : (
-                <div className="p-3.5 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center space-y-1">
+                <div className="p-3 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center space-y-0.5">
                   <div className="text-xs font-bold text-slate-600">No active dining orders right now</div>
                   <div className="text-[10px] text-slate-400">Order from our menu and watch live kitchen progress here</div>
                 </div>
@@ -2360,7 +2366,7 @@ const CustomerMenu = () => {
             {/* Section 2: Coupons & Exclusive Offers */}
             <div className="space-y-2">
               <span className="text-[11px] font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                <Ticket className="w-3.5 h-3.5 text-amber-500" />
+                <Ticket className="w-3.5 h-3.5 text-[#F59E0B]" />
                 <span>Exclusive Offers & Coupons</span>
               </span>
 
@@ -2371,24 +2377,24 @@ const CustomerMenu = () => {
                     return (
                       <div
                         key={offer._id || offer.code}
-                        className={`p-3 rounded-2xl border transition-all flex items-center justify-between gap-3 ${
+                        className={`p-2.5 rounded-2xl border transition-all flex items-center justify-between gap-2.5 ${
                           isApplied
                             ? 'bg-emerald-50/70 border-emerald-300'
                             : 'bg-amber-50/40 border-amber-200/70 hover:border-amber-300'
                         }`}
                       >
-                        <div className="flex items-start gap-2.5 min-w-0">
-                          <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                        <div className="flex items-start gap-2 min-w-0">
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
                             isApplied ? 'bg-emerald-500 text-white' : 'bg-amber-100 text-amber-700'
                           }`}>
-                            <Tag className="w-4 h-4" />
+                            <Tag className="w-3.5 h-3.5" />
                           </div>
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5">
                               <span className="font-mono font-black text-xs text-slate-900 tracking-wide">
                                 {offer.code}
                               </span>
-                              <span className="text-[9px] font-extrabold uppercase bg-brand-100 text-brand-700 px-1.5 py-0.5 rounded">
+                              <span className="text-[9px] font-extrabold uppercase bg-red-50 text-[#DC2626] px-1 py-0.2 rounded border border-red-200/60">
                                 {offer.discountType === 'percentage' ? `${offer.discountValue}% OFF` : `₹${offer.discountValue} OFF`}
                               </span>
                             </div>
@@ -2411,7 +2417,7 @@ const CustomerMenu = () => {
                           className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shrink-0 active:scale-95 ${
                             isApplied
                               ? 'bg-emerald-600 text-white cursor-default'
-                              : 'bg-stone-900 hover:bg-stone-800 text-white shadow-xs'
+                              : 'bg-[#121214] hover:bg-[#1E1E24] text-white shadow-xs'
                           }`}
                         >
                           {isApplied ? 'Applied ✓' : 'Apply Code'}
@@ -2421,7 +2427,7 @@ const CustomerMenu = () => {
                   })}
                 </div>
               ) : (
-                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
+                <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
                   <div className="text-xs font-bold text-slate-600">Have a coupon code?</div>
                   <div className="flex items-center gap-2">
                     <input
@@ -2429,7 +2435,7 @@ const CustomerMenu = () => {
                       placeholder="ENTER PROMO CODE"
                       value={couponInput}
                       onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                      className="flex-1 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono font-bold uppercase tracking-wider focus:outline-hidden focus:border-brand-500"
+                      className="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs font-mono font-bold uppercase tracking-wider focus:outline-hidden focus:border-brand-500"
                     />
                     <button
                       type="button"
@@ -2439,7 +2445,7 @@ const CustomerMenu = () => {
                         setIsProfileDrawerOpen(false);
                         setIsCartOpen(true);
                       }}
-                      className="px-4 py-2 bg-stone-900 hover:bg-stone-800 disabled:opacity-50 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0"
+                      className="px-3 py-1.5 bg-[#121214] hover:bg-[#1E1E24] disabled:opacity-50 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0"
                     >
                       {validatingCoupon ? 'Checking...' : 'Apply'}
                     </button>
@@ -2449,7 +2455,7 @@ const CustomerMenu = () => {
             </div>
 
             {/* Section 3: Dining Quick Utilities */}
-            <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2">
+            <div className="pt-1.5 border-t border-slate-100 grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => {
@@ -2458,7 +2464,7 @@ const CustomerMenu = () => {
                 }}
                 className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center gap-1.5 text-xs font-bold transition-all active:scale-95"
               >
-                <BellRing className="w-3.5 h-3.5 text-amber-500" />
+                <BellRing className="w-3.5 h-3.5 text-[#F59E0B]" />
                 <span>Call Staff</span>
               </button>
 
@@ -2475,7 +2481,7 @@ const CustomerMenu = () => {
                 }}
                 className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center gap-1.5 text-xs font-bold transition-all active:scale-95"
               >
-                <Printer className="w-3.5 h-3.5 text-brand-600" />
+                <Printer className="w-3.5 h-3.5 text-[#DC2626]" />
                 <span>Tax Invoice</span>
               </button>
             </div>
@@ -2484,7 +2490,7 @@ const CustomerMenu = () => {
             <button
               type="button"
               onClick={() => setIsProfileDrawerOpen(false)}
-              className="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0"
+              className="w-full py-2.5 bg-[#121214] hover:bg-[#1E1E24] text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0"
             >
               Done & Return to Menu
             </button>
