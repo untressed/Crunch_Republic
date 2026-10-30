@@ -936,23 +936,21 @@ const CustomerMenu = () => {
         <main className="w-full max-w-md bg-[#F8FAFC] min-h-screen flex flex-col relative shadow-2xl border-x border-slate-200">
           
           {/* Header Skeleton (Left Logo + Right Circular Button) */}
-          <header className="bg-[#121214] border-b border-[#1E1E24] px-4 py-3 sticky top-0 z-30 shadow-lg text-white">
-            <div className="flex items-center justify-between gap-3">
-              {/* Left: Branding Logo */}
-              <div className="flex items-center">
-                <CrunchLogo 
-                  variant="full" 
-                  isDark={true} 
-                  size="sm" 
-                  color="#dc2626"
-                  markClassName="w-9 h-9 shrink-0 drop-shadow-sm" 
-                />
-              </div>
+          <header className="h-16 bg-[#121214] border-b border-[#1E1E24] px-4 sticky top-0 z-30 shadow-lg text-white flex items-center justify-between gap-3 shrink-0">
+            {/* Left: Branding Logo */}
+            <div className="flex items-center">
+              <CrunchLogo 
+                variant="full" 
+                isDark={true} 
+                size="sm" 
+                color="#dc2626"
+                markClassName="w-9 h-9 shrink-0 drop-shadow-sm" 
+              />
+            </div>
 
-              {/* Right: Circular Profile Button Skeleton */}
-              <div className="w-11 h-11 rounded-full bg-[#1E1E24] border-2 border-amber-500/30 flex items-center justify-center animate-pulse">
-                <div className="w-5 h-5 rounded-full bg-stone-700/60"></div>
-              </div>
+            {/* Right: Circular Profile Button Skeleton */}
+            <div className="w-11 h-11 rounded-full bg-[#1E1E24] border-2 border-amber-500/30 flex items-center justify-center animate-pulse">
+              <div className="w-5 h-5 rounded-full bg-stone-700/60"></div>
             </div>
           </header>
 
@@ -1043,10 +1041,10 @@ const CustomerMenu = () => {
     <div className="min-h-screen bg-slate-100 text-slate-800 flex flex-col max-w-md mx-auto relative shadow-2xl border-x border-slate-200">
       
       {/* 1. CRUNCH REPUBLIC BRANDING HEADER (Smoked Ember & Artisanal Gold: Obsidian #121214 + Graphite #1E1E24) */}
-      <header className="bg-[#121214] border-b border-[#1E1E24] px-4 py-3 sticky top-0 z-30 shadow-lg text-white">
-        <div className="flex items-center justify-between gap-3">
-          {/* Left: Branding Logo (Republic Crimson #DC2626) */}
-          <a href={getMainUrl('/')} title="Back to Crunch Republic Website" className="hover:opacity-90 transition-opacity flex items-center">
+      <header className="h-16 bg-[#121214] border-b border-[#1E1E24] px-4 sticky top-0 z-30 shadow-lg text-white flex items-center justify-between gap-3 shrink-0">
+        {/* Left: Branding Logo & Table badge */}
+        <div className="flex items-center gap-2 min-w-0">
+          <a href={getMainUrl('/')} title="Back to Crunch Republic Website" className="hover:opacity-90 transition-opacity flex items-center shrink-0">
             <CrunchLogo 
               variant="full" 
               isDark={true} 
@@ -1056,45 +1054,30 @@ const CustomerMenu = () => {
             />
           </a>
 
-          {/* Right: Circular Premium Profile & Perks Button (Smoky Graphite #1E1E24 + Amber #F59E0B) */}
-          <div className="flex items-center gap-2">
-            {(tableParam || isCompanyDelivery) && (
-              <span className="hidden xs:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1E1E24] border border-[#2E2E38] text-[11px] font-bold text-stone-300">
-                <MapPin className="w-3 h-3 text-[#F59E0B] shrink-0" />
-                <span className="truncate max-w-[110px]">{isCompanyDelivery ? companyName : tableNumber}</span>
-              </span>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setIsProfileDrawerOpen(!isProfileDrawerOpen)}
-              className="relative w-11 h-11 rounded-full bg-gradient-to-tr from-[#1E1E24] to-[#2E2E38] hover:scale-105 active:scale-95 border-2 border-amber-500/40 shadow-lg shadow-black/40 flex items-center justify-center text-amber-400 transition-all focus:outline-hidden"
-              title="Profile, Offers & My Orders"
-              aria-label="Profile and Offers"
-            >
-              <User className="w-5 h-5 text-amber-400" />
-              {/* Notification badge if active offers or orders exist */}
-              {(activeOffers.length > 0 || tableOrders.length > 0) && (
-                <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#DC2626] border-2 border-[#121214] flex items-center justify-center shadow-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] animate-ping" />
-                </span>
-              )}
-            </button>
-          </div>
+          {(tableParam || isCompanyDelivery) && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#1E1E24] border border-[#2E2E38] text-[10px] font-bold text-stone-300 truncate max-w-[100px]">
+              <MapPin className="w-2.5 h-2.5 text-[#F59E0B] shrink-0" />
+              <span className="truncate">{isCompanyDelivery ? companyName : tableNumber}</span>
+            </span>
+          )}
         </div>
 
-        {/* Verified Table / Corporate badge for compact screens */}
-        {(tableParam || isCompanyDelivery) && (
-          <div className="xs:hidden mt-2 pt-2 border-t border-[#1E1E24] flex items-center justify-between text-[11px] text-stone-300">
-            <div className="flex items-center gap-1.5 font-semibold truncate">
-              <MapPin className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
-              <span className="truncate">{isCompanyDelivery ? `Corporate: ${companyName}` : `Dine-In: ${tableNumber}`}</span>
-            </div>
-            <span className="text-[9px] uppercase font-bold tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-full shrink-0">
-              Active Session
+        {/* Right: Circular Premium Profile & Perks Button (Smoky Graphite #1E1E24 + Amber #F59E0B) */}
+        <button
+          type="button"
+          onClick={() => setIsProfileDrawerOpen(!isProfileDrawerOpen)}
+          className="relative w-11 h-11 rounded-full bg-gradient-to-tr from-[#1E1E24] to-[#2E2E38] hover:scale-105 active:scale-95 border-2 border-amber-500/40 shadow-lg shadow-black/40 flex items-center justify-center text-amber-400 transition-all focus:outline-hidden shrink-0"
+          title="Profile, Offers & My Orders"
+          aria-label="Profile and Offers"
+        >
+          <User className="w-5 h-5 text-amber-400" />
+          {/* Notification badge if active offers or orders exist */}
+          {(activeOffers.length > 0 || tableOrders.length > 0) && (
+            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#DC2626] border-2 border-[#121214] flex items-center justify-center shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] animate-ping" />
             </span>
-          </div>
-        )}
+          )}
+        </button>
       </header>
 
       {/* ========================================================= */}
@@ -1149,7 +1132,7 @@ const CustomerMenu = () => {
           )}
 
           {/* SEARCH & VEG TOGGLE BAR */}
-          <div className="p-3 bg-white border-b border-slate-100 flex items-center gap-2 sticky top-[138px] z-20">
+          <div className="p-3 bg-white border-b border-slate-100 flex items-center gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
@@ -1190,8 +1173,8 @@ const CustomerMenu = () => {
             </button>
           </div>
 
-          {/* CATEGORIES HORIZONTAL PILLS */}
-          <div className="px-3 py-2 bg-white/95 backdrop-blur-md border-b border-slate-100 flex gap-1.5 overflow-x-auto scrollbar-none sticky top-[190px] z-20">
+          {/* CATEGORIES HORIZONTAL PILLS (Sticky at top-16, perfectly flush with 64px header) */}
+          <div className="px-3 py-2 bg-white/95 backdrop-blur-md border-b border-slate-200 flex gap-1.5 overflow-x-auto scrollbar-none sticky top-16 z-20 shadow-xs">
             <button
               onClick={() => setSelectedCategory('all')}
               className={`px-3 py-1.5 rounded-full text-xs font-black whitespace-nowrap transition-all border ${
