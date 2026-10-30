@@ -8,14 +8,19 @@ export default {
     extend: {
       colors: {
         brand: {
+          crimson: '#dc2626', // 1. Republic Crimson (Hero Action, Buy, Add-to-cart)
           50: '#fff1f2',
           100: '#ffe4e6',
           200: '#fecdd3',
-          500: '#dc2626', // Crunch Republic Signature Crimson Red
-          600: '#b91c1c',
-          700: '#991b1b',
-          800: '#7f1d1d',
-          accent: '#ffb703', // Cheese Gold
+          500: '#dc2626',
+          600: '#dc2626',
+          700: '#b91c1c',
+          800: '#991b1b',
+          amber: '#f59e0b',   // 2. Cheddar Amber (Highlights, 20% OFF deals, rating stars)
+          accent: '#f59e0b',
+          obsidian: '#121214',// 3. Obsidian Charcoal (Ultra-deep luxury canvas, dark base)
+          graphite: '#1e1e24',// 4. Smoky Graphite (Menu card containers, bottom sheets, elevated borders)
+          pearl: '#f8fafc',   // 5. Crisp Pearl Cream (Silky high-contrast text and crisp icons)
         },
         surface: {
           50: '#faf7f2',  // Warm cafe canvas

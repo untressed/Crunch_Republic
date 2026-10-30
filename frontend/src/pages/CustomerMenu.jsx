@@ -1016,10 +1016,10 @@ const CustomerMenu = () => {
   return (
     <div className="min-h-screen bg-slate-100 text-slate-800 flex flex-col max-w-md mx-auto relative shadow-2xl border-x border-slate-200">
       
-      {/* 1. CRUNCH REPUBLIC BRANDING HEADER (Modernized: Left branding, right circular profile button) */}
-      <header className="bg-stone-900 border-b border-stone-800/80 px-4 py-3 sticky top-0 z-30 shadow-md text-white">
+      {/* 1. CRUNCH REPUBLIC BRANDING HEADER (Smoked Ember & Artisanal Gold: Obsidian #121214 + Graphite #1E1E24) */}
+      <header className="bg-[#121214] border-b border-[#1E1E24] px-4 py-3 sticky top-0 z-30 shadow-lg text-white">
         <div className="flex items-center justify-between gap-3">
-          {/* Left: Branding Logo */}
+          {/* Left: Branding Logo (Republic Crimson #DC2626) */}
           <a href={getMainUrl('/')} title="Back to Crunch Republic Website" className="hover:opacity-90 transition-opacity flex items-center">
             <CrunchLogo 
               variant="full" 
@@ -1030,11 +1030,11 @@ const CustomerMenu = () => {
             />
           </a>
 
-          {/* Right: Circular Premium Profile & Perks Button */}
+          {/* Right: Circular Premium Profile & Perks Button (Smoky Graphite #1E1E24 + Amber #F59E0B) */}
           <div className="flex items-center gap-2">
             {(tableParam || isCompanyDelivery) && (
-              <span className="hidden xs:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-stone-800 border border-stone-700 text-[11px] font-bold text-stone-300">
-                <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
+              <span className="hidden xs:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1E1E24] border border-[#2E2E38] text-[11px] font-bold text-stone-300">
+                <MapPin className="w-3 h-3 text-[#F59E0B] shrink-0" />
                 <span className="truncate max-w-[110px]">{isCompanyDelivery ? companyName : tableNumber}</span>
               </span>
             )}
@@ -1042,15 +1042,15 @@ const CustomerMenu = () => {
             <button
               type="button"
               onClick={() => setIsProfileDrawerOpen(true)}
-              className="relative w-10 h-10 rounded-full bg-stone-800 hover:bg-stone-700 active:scale-95 border border-stone-700/90 shadow-md flex items-center justify-center text-stone-200 transition-all focus:outline-hidden"
+              className="relative w-10 h-10 rounded-full bg-[#1E1E24] hover:bg-stone-800 active:scale-95 border border-[#2E2E38] shadow-md flex items-center justify-center text-[#F8FAFC] transition-all focus:outline-hidden"
               title="Profile, Offers & My Orders"
               aria-label="Profile and Offers"
             >
-              <User className="w-5 h-5 text-stone-200" />
+              <User className="w-5 h-5 text-[#F8FAFC]" />
               {/* Notification badge if active offers or orders exist */}
               {(activeOffers.length > 0 || tableOrders.length > 0) && (
-                <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-rose-600 border-2 border-stone-900 flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-ping" />
+                <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#DC2626] border-2 border-[#121214] flex items-center justify-center shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#F59E0B] animate-ping" />
                 </span>
               )}
             </button>
@@ -1059,9 +1059,9 @@ const CustomerMenu = () => {
 
         {/* Verified Table / Corporate badge for compact screens */}
         {(tableParam || isCompanyDelivery) && (
-          <div className="xs:hidden mt-2 pt-2 border-t border-stone-800/60 flex items-center justify-between text-[11px] text-stone-300">
+          <div className="xs:hidden mt-2 pt-2 border-t border-[#1E1E24] flex items-center justify-between text-[11px] text-stone-300">
             <div className="flex items-center gap-1.5 font-semibold truncate">
-              <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
               <span className="truncate">{isCompanyDelivery ? `Corporate: ${companyName}` : `Dine-In: ${tableNumber}`}</span>
             </div>
             <span className="text-[9px] uppercase font-bold tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-full shrink-0">
@@ -1630,8 +1630,8 @@ const CustomerMenu = () => {
           }}
           className={`fixed bottom-24 right-5 z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform active:scale-90 border-2 ${
             activeTab === 'bill'
-              ? 'bg-slate-900 border-white text-white ring-4 ring-slate-900/20'
-              : 'bg-stone-900 border-emerald-400 text-emerald-400 ring-4 ring-emerald-500/20 hover:scale-105'
+              ? 'bg-[#121214] border-white text-white ring-4 ring-black/20'
+              : 'bg-[#121214] border-emerald-400 text-emerald-400 ring-4 ring-emerald-500/20 hover:scale-105'
           }`}
           title={activeTab === 'bill' ? 'Back to Food Menu' : 'Active Orders & Live Kitchen Status'}
           aria-label="Active Orders and Kitchen Status"
@@ -1644,7 +1644,7 @@ const CustomerMenu = () => {
               {/* Radar beacon pulse effect */}
               <span className="absolute inset-0 rounded-full border-2 border-emerald-400 animate-ping opacity-35 pointer-events-none" />
               {/* Orders count badge */}
-              <span className="absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1 bg-emerald-500 text-slate-950 text-[10px] font-black rounded-full border-2 border-stone-900 flex items-center justify-center shadow-md">
+              <span className="absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1 bg-emerald-500 text-[#121214] text-[10px] font-black rounded-full border-2 border-[#121214] flex items-center justify-center shadow-md">
                 {tableOrders.length}
               </span>
             </>
@@ -1652,22 +1652,22 @@ const CustomerMenu = () => {
         </button>
       )}
 
-      {/* 2. Floating Circular Cart Button (on right bottom corner) */}
+      {/* 2. Floating Circular Cart Button (on right bottom corner: Republic Crimson #DC2626 & Amber #F59E0B) */}
       {activeTab === 'menu' && (
         <button
           type="button"
           onClick={() => setIsCartOpen(true)}
           className={`fixed bottom-6 right-5 z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform active:scale-90 border-2 ${
             cart.length > 0
-              ? 'bg-gradient-to-tr from-brand-600 via-rose-600 to-amber-500 border-white text-white ring-4 ring-brand-500/30 hover:scale-105 animate-bounce-subtle'
-              : 'bg-stone-900 border-stone-700 text-stone-300 ring-2 ring-stone-800 hover:scale-105'
+              ? 'bg-gradient-to-tr from-[#DC2626] via-rose-600 to-[#F59E0B] border-white text-white ring-4 ring-[#DC2626]/30 hover:scale-105 animate-bounce-subtle'
+              : 'bg-[#121214] border-[#1E1E24] text-stone-300 ring-2 ring-stone-900 hover:scale-105'
           }`}
           title={cart.length > 0 ? `Review Bucket (${cartTotalQuantity} items)` : 'Your Bucket is Empty'}
           aria-label="View Shopping Cart"
         >
           <ShoppingBag className={`w-6 h-6 ${cart.length > 0 ? 'text-white' : 'text-stone-300'}`} />
           {cartTotalQuantity > 0 && (
-            <span className="absolute -top-1 -right-1 min-w-[22px] h-[22px] px-1 bg-amber-400 text-slate-950 text-[11px] font-black rounded-full border-2 border-white flex items-center justify-center shadow-md animate-scale-in">
+            <span className="absolute -top-1 -right-1 min-w-[22px] h-[22px] px-1 bg-[#F59E0B] text-[#121214] text-[11px] font-black rounded-full border-2 border-white flex items-center justify-center shadow-md animate-scale-in">
               {cartTotalQuantity}
             </span>
           )}

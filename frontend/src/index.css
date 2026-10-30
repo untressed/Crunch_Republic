@@ -2,18 +2,27 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+:root {
+  /* Crunch Republic Signature 5-Color System: Smoked Ember & Artisanal Gold */
+  --color-brand-crimson: #dc2626;  /* 1. Republic Crimson */
+  --color-brand-amber: #f59e0b;    /* 2. Cheddar Amber */
+  --color-brand-obsidian: #121214; /* 3. Obsidian Charcoal */
+  --color-brand-graphite: #1e1e24; /* 4. Smoky Graphite */
+  --color-brand-pearl: #f8fafc;    /* 5. Crisp Pearl Cream */
+}
+
 @layer base {
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #f8fafc; /* bg-slate-50 */
-    color: #334155;            /* text-slate-700 */
+    background-color: #f8fafc; /* bg-slate-50 / brand-pearl */
+    color: #1e1e24;            /* brand-graphite text */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
-    color: #0f172a;            /* text-slate-900 */
+    color: #121214;            /* brand-obsidian headings */
   }
 }
 
