@@ -1028,22 +1028,24 @@ const CustomerMenu = () => {
           </a>
         </div>
 
-        {/* 2. DINING / DELIVERY STATUS BAR */}
-        <div className="mt-3 px-3 py-2 bg-stone-800/90 rounded-2xl border border-stone-700/80 flex items-center justify-between gap-2 text-xs">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-stone-700/70 flex items-center justify-center text-stone-300 shrink-0">
-              <MapPin className="w-3.5 h-3.5" />
-            </div>
-            <div>
-              <div className="text-[10px] font-semibold text-stone-400">
-                {isCompanyDelivery ? 'Corporate Delivery' : (typeParam === 'takeaway' || (!tableParam && !companyParam) ? 'Takeaway / Direct Order' : 'Dine-In Table')}
+        {/* 2. DINING / DELIVERY STATUS BAR (Only shown when sitting at a verified table or corporate office hub) */}
+        {(tableParam || isCompanyDelivery) && (
+          <div className="mt-3 px-3 py-2 bg-stone-800/90 rounded-2xl border border-stone-700/80 flex items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-stone-700/70 flex items-center justify-center text-stone-300 shrink-0">
+                <MapPin className="w-3.5 h-3.5" />
               </div>
-              <div className="text-xs font-extrabold text-white tracking-wide">
-                {isCompanyDelivery ? companyName : (typeParam === 'takeaway' || (!tableParam && !companyParam) ? 'Direct Pickup / Counter' : tableNumber)}
+              <div>
+                <div className="text-[10px] font-semibold text-stone-400">
+                  {isCompanyDelivery ? 'Corporate Delivery' : 'Dine-In Table'}
+                </div>
+                <div className="text-xs font-extrabold text-white tracking-wide">
+                  {isCompanyDelivery ? companyName : tableNumber}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* 3. NAVIGATION BUTTONS: [FOOD MENU] and [MY ORDER] */}
         <div className="flex items-center gap-2.5 mt-3">
@@ -1436,39 +1438,25 @@ const CustomerMenu = () => {
                 </button>
               </div>
             </div>
-          ) : (
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs flex items-center justify-between">
-              <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-slate-400">Active Dining Session</div>
-                <h2 className="text-base font-black text-slate-900 mt-0.5">
-                  {tableNumber}
-                </h2>
-              </div>
-              <button
-                onClick={fetchTableOrders}
-                className="p-2 bg-slate-50 hover:bg-slate-100 text-slate-500 rounded-xl border border-slate-200 transition-colors"
-                title="Refresh status"
-              >
-                <RefreshCw className={`w-4 h-4 ${billLoading ? 'animate-spin' : ''}`} />
-              </button>
-            </div>
-          )}
+          ) : null}
 
-          {/* Orders History for Table */}
+          {/* Orders History for Table / Customer */}
           {tableOrders.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-400 space-y-3">
-              <Receipt className="w-10 h-10 stroke-[1.2] mx-auto text-slate-300" />
-              <div>
-                <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider">No Orders Placed Yet</h3>
-                <p className="text-[11px] text-slate-400 mt-1 max-w-xs mx-auto">
-                  Browse the menu and place your first order. Your active orders, live kitchen cooking status, and bill receipt will appear here.
+            <div className="bg-white border border-slate-200 rounded-3xl p-8 text-center text-slate-400 space-y-4 shadow-xs mt-2">
+              <div className="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto">
+                <ShoppingBag className="w-7 h-7 stroke-[1.5]" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider">No Active Orders Yet</h3>
+                <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
+                  Browse the menu and pick your favorite burgers, fries, or shakes. Once placed, your live kitchen cooking status and receipt will appear here in real-time.
                 </p>
               </div>
               <button
                 onClick={() => setActiveTab('menu')}
-                className="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-black uppercase tracking-wider shadow-sm transition-all"
+                className="px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-black uppercase tracking-wider shadow-md shadow-brand-500/20 transition-all active:scale-95"
               >
-                Browse Menu
+                Browse Food Menu
               </button>
             </div>
           ) : (
